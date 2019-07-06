@@ -1,0 +1,153 @@
+Setting up Xdebug
+-------------------------------------
+sudo dnf install  php-pecl-xdebug.x86_64
+
+
+Config Xdebug In php.ini
+-------------------------------------
+Add this lines to php.ini at the end of /etc/php.ini
+
+zend_extension=/usr/lib64/php/modules/xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_mode=req
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+
+
+
+Config Xdebug xdebug.ini
+-------------------------------------
+Add the same lines to /etc/php-zts.d/xdebug.ini:
+
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_mode=req
+##xdebug.remote_host=127.0.0.1
+xdebug.remote_host=localhost
+xdebug.remote_port=9000
+
+
+
+
+Allow port for Xdebug
+-------------------------------------
+sudo semanage port -a -t http_port_t -p tcp 9000
+
+
+Setting up Sublime Text 3
+-------------------------------------
+o Tool->Command Palette->
+- Search for install
+- Package Control: Install Package
+- xdebug client
+- Select: xdebug debugger client for sublime
+
+
+See XDebug In Sublime
+-------------------------------------
+Tools->Xdebug
+
+
+
+?XDEBUG_SESSION_START=sublime.xdebug
+
+
+
+menu and search for “install package”.
+
+o search for the package “Xdebug client”.
+
+
+
+You'll be subscribed to the back-end newsletter
+
+{
+    "folders":
+    [
+        {
+           "follow_symlinks": true,
+           "path": "."
+        }
+    ]
+}
+
+We are going to add a few more lines:
+
+{
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "."
+        }
+    ],
+    "settings": {
+        "xdebug": {
+             "url": "http://my.local.website/",
+        }
+    }
+}
+
+
+As you can see, I only added a URL to my actual web application. I could set more settings for Xdebug, however, this is enough to start with. I could have also set this URL in the Xdebug settings itself, but in that case, I couldn’t work on multiple projects without having to change the Xdebug config each time.
+Start the Xdebug session
+
+We can now start the Xdebug session to see if everything is set up properly. In the menu, click on tools -> Xdebug and click on start debugging (launch browser). You will notice that your website is opened up and that ?XDEBUG_SESSION_START=sublime.xdebug is added to the end of the URL. This will start the xdebug session. In Sublime, some extra panels appear where debug information will be shown, after you have set one or more breakpoints.
+Breakpoints
+
+Let’s set out first breakpoint. A breakpoint is basically a flag where your application will halt when it reaches it. At the moment it halts, you can inspect all the variables’ values so you know actually what is going on.
+
+We can add a breakpoint by clicking with our right mouse on a line, going to Xdebug and then clicking on add/remove breakpoint. A marker will be added to the line gutter to indicate that a breakpoint has been set.
+
+We open up our browser again and continue with the session we just started. You will notice that as soon as you go to the page where the breakpoint is, the page will stop loading. If you now open up Sublime, you will see a lot of information shown in the Xdebug panels.
+
+The Xdebug stack and Xdebug context are very interesting. In the stack, you can see the whole stacktrace your call went through.
+
+In the context, you will see all global variables, but also the variables you defined yourself. You can click on these variables to see exactly these variables are holding. For instance, in the screenshot below, I clicked on the $_SERVER variable.
+
+Notice that a yellow arrow is pointing at the line the application is currently halted on.
+
+So our application halted and now we can look through the variables defined. However, we are done and we want to move on. What now? When you right mouse click once again and hover over the Xdebug menu, you will have several options:
+
+    Run Which will run the application until the next breakpoint or until the ending.
+    Run to line which will run until the line you clicked.
+    Step into will step into the current function and stops right after.
+    Step over Will step over the current function and stops right after.
+    Step out Will step out of the current function and stop right after.
+    Stop Will stop debugging.
+    Detach Will also stop debugging.
+
+Run and stop are quite easy to understand. The step methods could be a little confusing. Let’s dive into these with a simple example.
+
+Class Foo() 
+{
+
+    public function bar(Array $arr)
+    {
+        $arr = self::fooBar($arr); // Breakpoint
+        return $arr;
+    }
+
+    public function fooBar(Array $arr)
+    {
+        return array_values($arr);
+    }
+}
+
+Imagine you added a breakpoint to the first line of the method bar. So on the line with the breakpoint comment (// breakpoint).
+
+With step into, the debugger will step into the fooBar method and will stop there at the first line. So in this case, the debugger will halt on the return array_values($arr); line.
+
+Step over will call the method, but will not stop. It will stop at the next line available after calling the method. So in this case, it will stop at return $arr;
+
+Lastly, with step out it will run through the whole bar method and return to the caller. In this case, it will go out of the object, back to the original caller.
+
+If you just decide to run, the application will run further until the moment it is done executing or another breakpoint occurs.
+Conclusion
+
+In this article we saw how we could integrate Xdebug with Sublime and made sure we understood how to debug. Almost every IDE suitable for PHP can integrate with Xdebug. If you are interested in debugging like this in Netbeans, have a look at the article mentioned in the introduction. Are you using breakpoints? Or are you using PHP functions like var_dump to get your debug data? Let us know in the comments below!
+Meet the author
+Peter Nijssen
+Peter is a software architect from the Netherlands. He freelanced for more then 6 years as a web developer, and meanwhile, he graduated as software engineer with honors. He decided to join CMNTY Corporation which specializes in creating community software and is now responsible for the ongoing development of multiple web applications as well as mobile applications. Peter believes a real developer is able to combine multiple techniques together to make sure the user receives the ultimate experience and enjoys using the application. In his free time, he loves to play board games with anyone who is interested. He especially has a passion for cooperative board games.
+

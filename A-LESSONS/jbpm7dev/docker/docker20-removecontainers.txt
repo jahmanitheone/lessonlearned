@@ -1,0 +1,118 @@
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+o Show all containers
+docker ps -a
+CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS
+                 NAMES
+96b3a166a4e6        jboss/drools-workbench:latest   "./start_drools-wb.sh"   22 minutes ago      Up 22 minute
+8080->8080/tcp   frosty_williams
+9923db2f1b6e        jboss/drools-workbench:latest   "./start_drools-wb.sh"   3 hours ago         Created
+                 drools-workbench2
+4a3865c92fbf        jboss/drools-workbench:latest   "./start_drools-wb.sh"   3 hours ago         Exited (255)
+8080->8080/tcp   drools-workbench
+20653362e913        jamtur01/static_web             "/bin/bash"              4 hours ago         Exited (127)
+                 tender_allen
+.
+.
+01f7d2459407        ubuntu                          "/bin/bash"              26 hours ago        Exited (127)
+                 hardcore_sinoussi
+df60164ec563        jamtur01/puppetmaster           "/bin/bash"              46 hours ago        Exited (127)
+                 distracted_lumiere
+4ab8003f4308        jamtur01/puppetmaster           "/bin/bas"               46 hours ago        Created
+                 vibrant_ritchie
+790a8f9892e3        ubuntu:16.04                    "/bin/bash"              2 days ago          Exited (1) 2
+                 new_container
+b719751f35b1        ubuntu                          " /bin/bash"             2 days ago          Created
+                 another_container_mum
+				 
+				 
+o Remove a container by name
+$ docker rm another_container_mum
+another_container_mum
+
+o Remove a container by id
+$ docker rm 790a8f9892e3
+790a8f9892e3
+
+o Show all containers who status is exited
+docker ps -a -f status=exited
+
+CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS
+                 NAMES
+4a3865c92fbf        jboss/drools-workbench:latest   "./start_drools-wb.sh"   4 hours ago         Exited (255)
+8080->8080/tcp   drools-workbench
+20653362e913        jamtur01/static_web             "/bin/bash"              4 hours ago         Exited (127)
+                 tender_allen
+687755381d65        jamtur01/static_web             "nginx -g 'daemon ..."   4 hours ago         Exited (0) 4
+                 youthful_hoover
+eb5928caeca4        jamtur01/static_web             "/bin/bash"              4 hours ago         Exited (127)
+                 compassionate_hawking
+aa40daeb673f        jamtur01/static_web             "nginx"                  4 hours ago         Exited (0) 4
+.
+.
+
+o Remove all containers who status is exited
+docker rm $(docker ps -a -f status=exited -q)
+4a3865c92fbf
+20653362e913
+687755381d65
+eb5928caeca4
+aa40daeb673f
+4beb9812257e
+74ff210eb5a2
+047ecd8ad696
+0a7ac627630c
+ab1b1ff2905d
+98bd31e69d07
+b1f7abae9f44
+13ce32c89238
+dc18772955b2
+a37719c79367
+1f54a121984d
+23014ff6de5f
+d75fc66f2702
+8bd6ec704144
+bddbd128779e
+51bfbace0557
+cdc84338988d
+01f7d2459407
+df60164ec563
+
+ 
+o View current containers				 
+
+
+Remove containers according to a pattern
+-------------------------------------------------
+o show containers with pattern
+docker ps -a |  grep  "jboss"
+
+o Remove all jobs containers by pattern??
+docker ps -a | grep "jboss" | awk '{print $3}' | xargs docker rmi
+
+
+
+Stop and remove all containers
+----------------------------------
+docker stop $(docker ps -a -q)
+
+$ docker stop $(docker ps -a -q)
+96b3a166a4e6
+725cddcb671e
+9ffbc3a0d24a
+708fdb7d77f6
+5d68bdb9b99b
+c24c65284aca
+e13c9057948d
+7839f6d5c614
+4c3a82dfb9cf
+aaecbdf6cfed
+524b72350b12
+4a2c7a700c82
+f41460578de4
+4ab8003f4308
+
+
+
+o Remove all containers
+docker rm $(docker ps -a -q)

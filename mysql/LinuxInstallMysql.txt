@@ -1,0 +1,68 @@
+-----------------------------------
+MYSQL Workbench Install
+-----------------------------------
+Download from http://dev.mysql.com/downloads/file/?id=463751
+- choose linux fedora install with RPM
+mysql-workbench-community-6.3.7-1.fc23.x86_64.rpm
+
+Update Federa
+---------------------------------------
+su
+dnf -y update
+
+
+Install Mysql Server
+---------------------------------------
+su
+dnf -y install mysql-server
+
+
+Install Mysql Client
+---------------------------------------
+su
+dnf -y install mysql
+
+
+- As of 02/2018 we are at version 5.7
+
+Install Mysql Workbench
+------------------------------
+dnf -y install mysql-workbench-community
+
+
+UnInstall Mysql 
+------------------------------
+su
+dnf remove mysql 
+dnf remove mysql-server
+
+UnInstall Mysql Workbench
+------------------------------
+dnf uninstall mysql-workbench-community
+
+
+Change root password
+-----------------------------------
+mysqladmin --user=root password "aiki"
+
+
+Mysql Services
+-----------------------------------
+systemctl start mysqld
+systemctl status mysqld
+systemctl stop mysqld
+
+
+Local Command Location
+--------------------------
+/usr/libexec/mysql start
+/usr/libexec/mysql stop
+/usr/libexec/mysql restart
+/usr/libexec/mysql status
+
+
+
+
+
+
+

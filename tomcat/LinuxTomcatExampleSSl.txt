@@ -1,0 +1,69 @@
+1. Add security constraint to web.xml of j2ee webapp
+---------------------------------------------------------
+a. Tomcat has example at /opt/apache-tomcat-8.5.5/webapps/examples/WEB-INF
+b. Use my script to start tomcat: tomcatstart
+
+
+2. View with no SSL
+---------------------------------------------------------
+http://localhost:8080/examples/
+
+
+3. View with SSL
+---------------------------------------------------------
+a. Try with https://localhost:8080/
+https://localhost:8080/examples/
+-- Will not work, need 8443 for port
+
+b. https://localhost:8443/
+https://localhost:8443/examples/
+-- Still does not work
+
+Why?
+-- Need to configure app to accepss SSL authorization
+
+
+4. Add SSL Autorization to example applicaton
+-------------------------------------------------------------
+a. Open /opt/apache-tomcat-8.5.5/webapps/examples/WEB-INF/web.xml
+b. Look for both <security-constraint>
+c. Add this before end of both </security-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+
+
+5. Retry example app without starting tomcat
+-------------------------------------------------------------
+o https://localhost:8443/examples/
+-- With google we get: "This site can’t provide a secure connection"
+-- Have to restart tomcat
+
+o tomcatstop
+o tomcatstart
+
+
+6. Retry example after restarting tomcat
+-------------------------------------------------------------
+o https://localhost:8443/examples/
+a. Firefox
+- We get "Your connection is not secure"
+- Select Advanced, Select "Add Exception", "Confirm Security Exception"
+- We get a triangle orange icon at the location bar
+- Click it and select location right arrow
+- Select "More Information", "This website does not supply ownership information."
+- It's ok to use SSL
+b. Google
+- We get a triangle red icon at the location bar
+- Click it and select Details
+- We see: "This page is insecure (broken HTTPS)."
+- It's ok to use SSL
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+-----------------------------------
+Export MySql on Command Line
+-----------------------------------
+o Export phpmyadmin schema
+/opt/lanp/mysqldump --user=root --password="" phpmyadmin > /home/pchauvet/Documents/xxx.sql
+
+
+-----------------------------------
+Export From phpMyadmin
+-----------------------------------
+o http://localhost/phpmyadmin/
+o Select table
+o Export
+o Select  where to export
+
+-----------------------------------
+Change root password
+-----------------------------------
+o Current password is blank
+
+o Change blank password
+/opt/lampp/bin/mysqladmin --user=root password "gue55me"
+o Change existing password. Change 12345 to gue55me
+/opt/lampp/bin/mysqladmin --user=root --password=12345 password "gue55me"
+
+
+Connect to Mysql
+-----------------------------------
+/opt/lampp/bin/
+
+./mysql -uroot -p'aiki';
+select user,host from mysql.user; 
+
+
+./mysql -ujbpm -p'jbpm';
+
+-----------------
+
+
+
+
+

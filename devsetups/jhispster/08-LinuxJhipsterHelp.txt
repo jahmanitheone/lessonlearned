@@ -1,0 +1,23 @@
+Usage:
+  yo jhipster:app [options] 
+
+Options:
+  -h,   --help                  # Print the generator's options and usage
+        --skip-cache            # Do not remember prompt answers                                                        Default: false
+        --skip-install          # Do not automatically install dependencies                                             Default: false
+        --skip-client           # Skip the client-side application generation                                           Default: false
+        --skip-server           # Skip the server-side application generation                                           Default: false
+        --skip-user-management  # Skip the user management module during app generation                                 Default: false
+        --i18n                  # Disable or enable i18n when skipping client side generation, has no effect otherwise  Default: true
+        --with-entities         # Regenerate the existing entities if any                                               Default: false
+        --check-install         # Check the status of the required tools                                                Default: true
+        --jhi-prefix            # Add prefix before services, controllers and states name                               Default: jhi
+
+Description:
+    Creates a new JHipster application based on the selected options
+
+Example:
+    yo jhipster
+
+    This will compose jhipster:client, jhipster:server and jhipster:languages to scaffold a full application
+

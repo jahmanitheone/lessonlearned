@@ -1,0 +1,375 @@
+IntelliJ Git Repository Setting
+---------------------------------------
+o Start Idea
+-- Configure -- Version Contorl For Git:
+Path to Git Excecutable: /usr/bin/git
+SSH executable: Built-in
+Test:
+* Shows Git Version 2.7.4.0
+
+-- Configure Settings Repository
+Upstream URL: /mnt/FDATA/gitrepository/prj21points02.git
+Overwrite Local
+
+
+o Checkout Project
+-- Check out from Version Control
+-- Git
+-- Git Repository URL: /mnt/FDATA/gitrepository/prj21points02.git
+-- Parent Directory: /mnt/FDEV/workspacejhipster02
+-- Clone
+
+Upgrade Jhipster Version
+------------------------------
+o Checkout marterial_design_theme
+git clone -b marterial_design_theme /mnt/FDATA/gitrepository/prj21points02.git
+cd prj21points02
+
+o Branch to new entity branch
+git branch jhispster_entities_v5
+git add -A
+git checkout jhispster_entities_v5
+git branch
+* jhispster_entities_v5
+  marterial_design_theme
+git commit -m "ReFactor Schema Health entities"
+
+o Refactor project
+npm install
+
+gradlew clean
+./gradlew -Pdev clean bootRepackage -DskipTests=true
+
+
+ReFactor New Health Entities
+-------------------------------------
+o New Tables
+-- See 21pointsentity04.sql
+User
+Weight
+Settings
+BloodPressure
+Points
+
+**-> Create Entity: Points
+yo jhipster:entity Points
+---- columns
+date (LocalDate) - required
+exercise (Integer) - required
+meals (Integer) - required
+alcohol (Integer) - required
+notes (String) - required, min 5
+-- relations
+many-to-one relationship: user
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity?n user
+? What is the name of the relationship? user
+? What is the type of the relationship? many-to-one
+? Do you want to add a relationship to another entity? (Y/n) n
+? When you display this relationship with AngularJS, which field from 'user' do you want to use? id
+? Do you want to add any validation rules to this relationship? No
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+-- App types
+? Do you want to use separate service class for your business logic? No, the REST controller should use the rep
+? Do you want pagination on your entity? Yes, with pagination links
+? Overwrite src/main/resources/ehcache.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/webapp/i18n/en/global.json? (Ynaxdh) 
+
+
+
+**-> Create Entity: Weight
+yo jhipster:entity Weight
+---- columns
+date (LocalDate) - required
+weight (Integer) - required
+-- relations
+? Do you want to add a field to your entity? (Y/n) n
+many-to-one relationship: user
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? user
+? What is the name of the relationship? user
+? What is the type of the relationship? many-to-one
+? Do you want to add a relationship to another entity? (Y/n) n
+? When you display this relationship with AngularJS, which field from 'user' do you want to use? id
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+-- App types
+? Do you want to use separate service class for your business logic? No, the REST controller should use the rep
+? Do you want pagination on your entity? Yes, with pagination links
+? Overwrite src/main/resources/ehcache.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/webapp/i18n/en/global.json? (Ynaxdh) 
+
+
+**-> Create Entity: BloodPressure
+yo jhipster:entity BloodPressure
+---- columns
+date (LocalDate) - required
+systolic (Integer) - required
+diastolic (Integer) - required
+-- relations
+many-to-one relationship: user
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? user
+? What is the name of the relationship? user
+? What is the type of the relationship? many-to-one
+? Do you want to add a relationship to another entity? (Y/n) n
+? When you display this relationship with AngularJS, which field from 'user' do you want to use? id
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+-- App types
+? Do you want to use separate service class for your business logic? No, the REST controller should use the rep
+? Do you want pagination on your entity? Yes, with pagination links
+? Overwrite src/main/resources/ehcache.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/webapp/i18n/en/global.json? (Ynaxdh) 
+
+
+
+**-> Create Entity: Preference
+yo jhipster:entity Preference
+---- columns
+date (LocalDate) - required
+weekly_goal (Integer) - require, min: 10, max: 20
+weight_units (Enum)
+ - enum
+--
+weekly_goal (Integer) required min='10' max='21'
+Generating field #2
+? Do you want to add a field to your entnity? Yes
+? What is the name of your field? weight_units
+? What is the type of your field? Enumeration (Java enum type)
+? What is the class name of your enumeration? Units
+? What are the values of your enumeration (separated by comma)? kg,lb
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required
+=================Preferences=================
+date (LocalDate) required 
+weekly_goal (Integer) required min='10' max='21'
+weight_units (Units) required
+-- relations
+? Do you want to add a field to your entity? (Y/n) n
+many-to-one relationship: user
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? user
+? What is the name of the relationship? user
+? What is the type of the relat./ionship? one-to-one
+================= Preference =================
+Fields
+date (LocalDate) required 
+weekly_goal (Integer) required min='10' max='20' 
+weight (Units) required 
+Relationships
+user (User) one-to-one 
+? Do you want to add a relationship to another entity? (Y/n) n
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should use the repository directly
+? Do you want pagination on your entity? Yes, with pagination links
+? Overwrite src/main/resources/ehcache.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+? Overwrite src/main/webapp/i18n/en/global.json? (Ynaxdh) 
+
+
+Validate New Entities
+-------------------------
+gradlew test
+-- Got Successful!
+
+
+Run Application
+-----------------------------
+gradlew
+
+
+Created Appplication
+--------------------------------------
+Issue: id was showing for all entities instead of username
+	/src/main/webapp/app/entities/points/points-dialog.html
+	/src/main/webapp/app/entities/points/preference-dialog.html
+	/src/main/webapp/app/entities/points/weight-dialog.html
+
+        <div class="form-group">
+            <label data-translate="healthApp.weight.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.weight.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+
+
+Generate Change Log
+----------------------------------
+gradlew liquibaseDiffChangelog
+
+Issue: liquibaseDiffChangelog
+Caused by: org.postgresql.util.PSQLException: FATAL: role "21points does not exist
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2458)
+        at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2589)
+        at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:116)
+        at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFact
+
+*Fix: Logged in phpAdmin3 and create another database and role:
+-- database: 21points
+-- Login Role: 21points
+
+
+Commit new schema changes
+--------------------------------
+git branch
+* jhispster_entities_v5
+  marterial_design_theme
+git add -A
+git status
+git commit -m "ReFactor Schema Health entities"
+git push --set-upstream origin jhispster_entities_v5
+git branch
+* jhispster_entities_v5
+  marterial_design_theme
+
+
+Refactor User As OneToOne Rel
+--------------------------------
+o Change User.java
+    @ManyToOne
+    private  User user; 
+
+	-- to
+
+    @OneToOne(mappedBy = "preference")
+    @JsonIgnore
+    private User user
+
+   -- Import require jars	
+
+o Changed Preferece
+    @OneToOne
+    @JsonIgnore
+    private Preference preference;
+    public Preference getPreference() {
+
+        return preference;
+    }
+    public void setPreference(Preference preference) {
+
+        this.preference = preference;
+    }
+
+   -- Import require jars	
+
+
+o  gradlew liquibaseDiffChangelog
+Issue: Mapper is not correct
+	-- Added to UserMapper
+  @Mapping(target = "password", ignore = true)
+  
+
+o  gradlew liquibaseDiffChangelog
+
+-- created 
+20160927133916_changelog.xml
+
+
+o Validate New Entities
+gradlew test
+-- Got Successful!
+
+Commit new schema changes
+--------------------------------
+git branch
+* jhispster_entities_v5
+  marterial_design_theme
+git add -A
+git status
+git commit -m "Added OneToOne Relation Between User and Preference"
+[jhispster_entities_v5 fddf533] Added OneToOne Relation Between User and Preference
+git push --set-upstream origin jhispster_entities_v5
+d68b140..fddf533  jhispster_entities_v5 -> jhispster_entities_v5
+git branch
+* jhispster_entities_v5
+  marterial_design_theme
+
+
+
+
+Add Browsersync Feature
+----------------------------------------
+o Validate if package.json has "browser-sync"
+- my version had:
+ "devDependencies": {
+	..
+    "browser-sync": "2.15.0",
+    	..
+-- If not add these entries to package.json
+{
+{
+"name": "jhipster-book",
+"version": "1.0.0",
+"description": "The JHipster Mini-Book",
+"repository": {
+"type": "git",
+"url": "git@bitbucket.org:mraible/jhipster-book.git"
+},
+"devDependencies": {
+    "browser-sync": "2.15.0",
+    "grunt": "~1.0.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-browser-sync": "2.0.0",
+    "load-grunt-tasks": "3.1.0",
+    "grunt-contrib-watch": "0.6.1"
+}
+}
+o Need these chantges in Gruntfile.js:
+'use strict';
+module.exports = function (grunt) {
+ require('load-grunt-tasks')(grunt);
+  grunt.initConfig({
+watch: {
+web: {
+files: ['src/main/webapp/css/*.css', 'src/main/webapp/js/**/*.js']
+}
+},
+browserSync: {
+dev: {
+bsFiles: {
+src : [
+'src/main/webapp/index.html',
+'src/main/webapp/tpl/**/*.html',
+'src/main/webapp/css/*.css',
+'src/main/webapp/js/**/*.js',
+'src/main/webapp/img/**/*.{png,jpg,jpeg,gif,webp,svg}'
+]
+}
+},
+options: {
+watchTask: true,
+server: {
+baseDir: "./src/main/webapp/"
+}
+}
+}
+});
+  grunt.registerTask('serve', [
+'browserSync',
+'watch'
+]);
+};
+
+-- Install grunt
+npm install
+
+
+--- Over Version 2
+npm install -g browser-sync
+
+
+o Run  BrowserSync To Allow CSS, JS and HTML Code change
+----------------------------------------------------------------
+
+
+
+

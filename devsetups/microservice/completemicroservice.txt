@@ -1,0 +1,91 @@
+Install Maven - Build manager for Java projects. Features a (POM) Project Object Model,
+-----------------------------
+On command line enter: mvn
+Fedora will install mvn. 
+
+whereis mvn
+Its install at: /usr/bin/mvn 
+
+mvn -version
+Apache Maven 3.3.9 ..
+
+
+Install Git - Version control system
+-----------------------------
+On command line enter: git
+Fedora will install git:
+
+whereis git
+Its install at: /usr/bin/git
+
+
+
+Install SpringBoot
+---------------------------------------
+o Download
+curl https://start.spring.io/install.sh | sh
+
+-- where is it installed
+whereis spring
+spring: /usr/local/bin/spring
+
+-- Version
+spring --version
+Spring CLI v1.4.1.RELEASE
+
+
+cucumber - handles specfication, features
+	https://cucumber.io/
+	https://github.com/cucumber
+	https://oss.sonatype.org/content/repositories/snapshots/info/cukes/
+	<repository>
+	    <id>sonatype-snapshots</id>
+	    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+	    <snapshots>
+		<enabled>true</enabled>
+	    </snapshots>
+	</repository>
+
+	<dependency>
+	    <groupId>info.cukes</groupId>
+	    <artifactId>cucumber-java</artifactId>
+	    <version>1.2.4-SNAPSHOT</version>
+	    <scope>test</scope>
+	</dependency>
+
+springio - springboot
+
+serenity
+	https://github.com/serenity-bdd
+
+rest-assured
+	http://rest-assured.io/
+	https://github.com/rest-assured/rest-assured
+
+
+spock - unit testing tool
+	http://spockframework.org/
+	https://github.com/spockframework
+
+
+mongo
+	https://www.mongodb.com/
+
+movie-service
+	https://github.com/wakaleo/movie-service
+	o Rund mongo first
+
+	origim/devoss
+
+
+
+
+
+
+
+
+
+
+
+
+

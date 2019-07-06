@@ -1,0 +1,63 @@
+Install the docker package
+----------------------------------
+sudo dnf install docker
+
+- Start the Docker daemon.
+sudo systemctl start docker
+
+-To make Docker start at boot, run 
+sudo systemctl enable docker
+
+
+Running Docker
+------------------------------
+o Verify that Docker is working:
+sudo docker run -i -t fedora /bin/bash
+
+The following happens if there is no local fedora image available:
+Unable to find image 'fedora:latest' locally
+latest: Pulling from docker.io/fedora
+
+
+Testing your Docker setup 
+-------------------------------
+
+⁠o Test your Docker setup with the fedora image:
+sudo docker pull fedora 
+
+o Run the following command to run "Hello World" by means of Busybox:
+$ sudo docker run fedora /bin/echo hello world
+
+
+Docker Commands
+----------------------------------------
+o displays system-wide information about docker.
+docker info 
+
+o This command runs a docker container. 
+sudo docker run busybox /bin/echo this is an echo
+
+o runs image a87ecb4f327c interactively (
+sudo docker run -i -t a87ecb4f327c /bin/bash
+
+
+ Mapping container ports to host ports 
+------------------------------------------
+o command runs fedora/httpd in a container in detached mode, 
+docker run -p 8080:80 -d -i -t fedora/httpd
+
+o command shows only running containers. 
+sudo docker ps
+
+o show all containers (including containers that are not running), use this comman
+sudo docker ps -a
+
+
+
+
+
+
+
+
+
+

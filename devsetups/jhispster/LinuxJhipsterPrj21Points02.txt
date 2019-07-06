@@ -1,0 +1,735 @@
+Upgrade Jhipster Version
+------------------------------
+npm update -g generator-jhipster
+
+-- If issue, try retried with
+npm install -g generator-jhipster
+
+
+
+Create A Jhipster Project
+------------------------------------
+o Create working directory
+/mnt/FDEV/workspacejhipster02/prj21points02
+
+
+o run jhipster
+yo jhipster
+
+Welcome to the JHipster Generator v3.8.0
+Documentation for creating an application: https://jhipster.github.io/creating-an-app/
+Application files will be generated in folder: /home/pchauvet
+? May JHipster anonymously report usage statistics to improve the tool over time? No
+? (1/13) Which *type* of application would you like to create? Monolithic application (recommended for simple proj
+ects)
+? (2/13) What is the base name of your application? 21points
+? (3/13) What is your default Java package name? org.jhipster.health
+? (4/13) Which *type* of authentication would you like to use? HTTP Session Authentication (stateful, default Spri
+ng Security mechanism)
+? (5/13) Which *type* of database would you like to use? SQL (H2, MySQL, MariaDB, PostgreSQL, Oracle)
+? (6/13) Which *production* database would you like to use? PostgreSQL
+? (7/13) Which *development* database would you like to use? PostgreSQL
+? (8/13) Do you want to use Hibernate 2nd level cache? Yes, with ehcache (local cache, for a single node)
+? (9/13) Would you like to use Maven or Gradle for building the backend? Gradle
+? (10/13) Which other technologies would you like to use? (Press <space> to select)
+? (11/13) Would you like to use the LibSass stylesheet preprocessor for your CSS? No
+? (12/13) Would you like to enable internationalization support? No
+? (13/13) Which testing frameworks would you like to use? (Press <space> to select)Gatling
+
+
+
+Validate Application Generation
+--------------------------------------
+gulp test
+
+gradlew test
+
+-- clean app
+gradlew cleanl
+
+
+Running Jhister App
+-----------------------------
+gradle bootRun
+
+** Had database connection issue
+-- I selected Servers/data/Database
+-- Created database:
+Name: 21points
+Owner: pchauvet
+
+
+
+/prj21points02/src/main/resources/config/application-dev.yml
+- Has connection: jdbc:postgresql://localhost:5432/21points
+- We have to create the database on Posgress
+- Change the username to: pchauvet
+
+Create Database In Postgres
+-----------------------------------
+* See linuxlessons/linixdev/LinuxProgress.txt
+
+- Start postgres service
+service postgressvc start
+
+psql
+
+
+- Open phAdmin3
+
+
+
+Adding Google Material Design - Nice Theme -- Version 1
+-------------------------------------------------------------------------
+1. Install generator-jhipster-bootstrap-material-design
+npm install -g generator-jhipster-bootstrap-material-design
+
+2. Create a jhipster project
+
+3. Add material design
+yo jhipster-bootstrap-material-design
+
+.
+.
+Please note that,
+    bootstrap-material-design#0.5.10 depends on jquery#^2.2 which resolved to jquery#2.2.4
+    bootstrap#3.3.6 depends on jquery#1.9.1 - 2 which resolved to jquery#2.2.4
+    21-points depends on jquery#3.1.0 which resolved to jquery#3.1.0
+    bootstrap-sass#3.3.7 depends on jquery#1.9.1 - 3 which resolved to jquery#3.1.1
+Resort to using jquery#3.1.0 which resolved to jquery#3.1.0
+Code incompatibilities may occur.
+bower install       arrive#2.3.0
+bower install       bootstrap-material-design#0.5.10
+.
+.
+
+
+
+Adding Google Material Design - From book - Version 2 - Did not work
+----------------------------------------------------------------------------
+o bower install bootstrap-material-design --save
+
+o Install needed bootstrap 3.3.6, I chose it
+
+o Create new CSS, Javascript Using '
+-- grunt wiredep
+
+** Bunch of issues
+Issue 1: Fatal error: Unable to find local grunt.
+-- I followed link:
+http://gruntjs.com/getting-started
+
+npm install
+
+Issue 2: Add grunt to package.json
+* grunt -version 
+v1.2.0
+-- I wanted to add the latest version
+
+ "devDependencies": {
+ 	.
+	.
+    "grunt": "~1.0.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0"
+	
+
+Issue 3: No compatible version found: grunt@~1.2.0
+--  Valid install targets:
+npm ERR! notarget 1.0.1, 1.0.0, 1.0.0-rc1, 0.4.5, 0.4.4, 0.4.3, 0.4.2, 0.4.1, 0.4.0, 0.4.0-rc8, 0.4.0-rc7, 0.4.0-rc6, 0.4.0-rc5, 0.4.0-rc4, 0.4.0-rc3, 0.4.0-rc2, 0.4.0-rc1, 0.4.0-a, 0.3.17, 0.3.16
+
+- I changed package.json to:
+ "grunt": "~1.0.1",
+
+o Config project with grunt
+npm install
+
+o grunt
+Issue 4: A valid Gruntfile could not be found.
+
+-- Had to add lots of entries to: package.json
+grunt* entries
+karma* entries
+wiredep* entires
+++
+
+-- Created Gruntfile.js
+
+- Tried grunt again:
+browser came up
+
+
+o Upgrade with grunt
+grunt wiredep
+
+
+-- added to src/main/webapp/index.html
+<script> 
+$.material.init()
+</script>
+
+* Issue 5: Reinstalled since material design was not showing
+-- Selected bootstrap#v4-dev which resolved to dad1c88653 and is required by bootstrap-material-design#4.0.2
+-- Selected 1) jquery#^2.2 which resolved to 2.2.4 and is required by bootstrap-material-design#4.0.2
+-- ? Answer 1
+bower install       bootstrap#dad1c88653
+bower install       jquery#2.2.4
+
+
+
+Git Branching
+---------------------------------------------------------
+git branch marterial_design_theme
+git add -A
+git checkout marterial_design_theme
+
+git commit -m "Material Design theme for Bootstrap"
+* Issues: Had some missing files, but added all these files
+
+git push --set-upstpwdream origin marterial_design_theme
+
+
+
+
+Checkout Master
+---------------------------------------------------------
+git clone /mnt/FDATA/gitrepository/prj21points02.git
+git branch
+
+* marterial_design_theme
+
+
+
+
+Checkout Branching
+---------------------------------------------------------
+git clone -b marterial_design_theme /mnt/FDATA/gitrepository/prj21points02.git
+git branch
+
+* marterial_design_theme
+
+
+
+Add New Entities
+---------------------------------------------------------
+git branch jhispster_entities_v
+git add -A
+git checkout jhispster_entities_v
+git branch
+* jhispst
+  marterial_design_theme
+
+git commit -m "Adding New Entities"
+git push --set-upstream origin jhispster_entities
+* Issues: Had some missing files, but added all these files
+  I already creaated this branch
+
+
+-- Used branch jhispster_entities_v2
+git branch jhispster_entities_v2
+git add -A
+git checkout jhispster_entities_v2
+git branch
+* jhispst
+  marterial_design_theme
+
+git commit -m "Adding New Entities"
+git push --set-upstream origin jhispster_entities_v2
+* jhispster_entities_v2
+  marterial_design_theme
+
+
+-- clone app
+git clone -b jhispster_entities_v2 /mnt/FDATA/gitrepository/prj21points02.git
+git branch
+
+** Issue:  Error: Cannot find module 'gulp-expect-file'
+- ran npm update
+
+
+Create 21Points Entity: Goal
+--------------------------------
+yo jhipster:entity Goal
+
+The entity Goal is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? name
+? What is the type of your field? String
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required, Minimum length
+? What is the minimum length of your field? 10
+================= Goal =================
+Fields
+name (String) required minlength='10' 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? description
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Goal =================
+Fields
+name (String) required minlength='10' 
+description (String) 
+Generating field #3
+? Do you want to add a field to your entity? No
+================= Goal =================
+Fields
+name (String) required minlength='10' 
+description (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? user
+? What is the name of the relationship? user
+? What is the type of the relationship? many-to-one
+? When you display this relationship with AngularJS, which field from 'user' do you want to use? id
+? Do you want to add any validation rules to this relationship? No
+================= Goal =================
+Fields
+name (String) required minlength='10' 
+description (String) 
+Relationships
+user (User) many-to-one 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Goal =================
+Fields
+name (String) required minlength='10' 
+description (String) 
+Relationships
+user (User) many-to-one 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should use the rep
+ository directly
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+  create .jhipster/Goal.json
+   create src/main/java/org/jhipster/health/domain/Goal.java
+   create src/main/java/org/jhipster/health/repository/GoalRepository.java
+   create src/main/java/org/jhipster/health/web/rest/GoalResource.java
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? overwrite
+.
+Running gulp Inject to add javascript to index
+[16:20:33] Using gulpfile /mnt/FDEV/workspacejhipster02/prj21points02/gulpfile.js
+[16:20:33] Starting 'inject:app'...
+[16:20:33] gulp-inject 109 files into index.html.
+[16:20:33] Finished 'inject:app' after 251 ms
+
+
+Create 21Points Entity: Metric
+--------------------------------
+yo jhipster:entity Metric
+
+The entity Metric is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? name
+? What is the type of your field? String
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required, Minimum length
+? What is the minimum length of your field? 2
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? amount
+? What is the type of your field? String
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+amount (String) required 
+Generating field #3
+? Do you want to add a field to your entity? No
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+amount (String) required 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? entry
+? What is the name of the relationship? entry
+? What is the type of the relationship? many-to-many
+? Is this entity the owner of the relationship? No
+? What is the name of this relationship in the other entity? goal
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+amount (String) required 
+Relationships
+entry (Entry) many-to-many 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? goal
+? What is the name of the relationship? goal
+? What is the type of the relationship? many-to-many
+? Is this entity the owner of the relationship? No
+? What is the name of this relationship in the other entity? metric
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+amount (String) required 
+Relationships
+entry (Entry) many-to-many 
+goal (Goal) many-to-many 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Metric =================
+Fields
+name (String) required minlength='2' 
+amount (String) required 
+Relationships
+entry (Entry) many-to-many 
+goal (Goal) many-to-many 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should use the rep
+ository directly
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? overwrite
+    force src/main/resources/ehcache.xml
+   create src/main/resources/config/liquibase/changelog/20160925202846_added_entity_Metric.xml
+ conflict src/main/resources/config/liquibase/master.xml
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+ conflict src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/app/layouts/navbar/navbar.html? overwrite
+    force src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/i18n/en/global.json? overwrite
+    force src/main/webapp/i18n/en/global.json
+   create src/test/gatling/simulations/MetricGatlingTest.scala
+Running gulp Inject to add javascript to index
+[16:28:56] Using gulpfile /mnt/FDEV/workspacejhipster02/prj21points02/gulpfile.js
+[16:28:56] Starting 'inject:app'...
+[16:28:56] gulp-inject 115 files into index.html.
+[16:28:56] Finished 'inject:app' after 241 ms
+
+
+
+Create 21Points Entity: Entry
+---------------------------------
+yo jhipster:entity Entry
+The entity Entry is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? date
+? What is the type of your field? LocalDate
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? exercise
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) 
+exercise (Integer) 
+Generating field #3
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? meals
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) 
+exercise (Integer) 
+meals (Integer) 
+Generating field #4
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? alcohol
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) 
+exercise (Integer) 
+meals (Integer) 
+alcohol (Integer) 
+Generating field #5
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? notes
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) 
+exercise (Integer) 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Generating field #6
+? Do you want to add a field to your entity? No
+================= Entry =================
+Fields
+date (LocalDate) 
+exercise (Integer) 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? goal
+? What is the name of the relationship? goal
+? What is the type of the relationship? many-to-many
+? Is this entity the owner of the relationship? (y/N) 
+[pchauvet@new-host prj21points02]$ ^C
+[pchauvet@new-host prj21points02]$ ^C
+[pchauvet@new-host prj21points02]$ yo jhipster:entity Entry
+The entity Entry is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? date
+? What is the type of your field? LocalDate
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required
+================= Entry =================
+Fields
+date (LocalDate) required 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? exercise
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? Yes
+? Which validation rules do you want to add? Required
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+Generating field #3
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? meals
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+Generating field #4
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? alcohol
+? What is the type of your field? Integer
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+Generating field #5
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? notes
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Generating field #6
+? Do you want to add a field to your entity? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? goal
+? What is the name of the relationship? goal
+? What is the type of the relationship? many-to-one
+? When you display this relationship with AngularJS, which field from 'goal' do you want to use? id
+? Do you want to add any validation rules to this relationship? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Relationships
+goal (Goal) many-to-one 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? metric
+? What is the name of the relationship? metric
+? What is the type of the relationship? many-to-many
+? Is this entity the owner of the relationship? Yes
+? What is the name of this relationship in the other entity? entry
+? When you display this relationship with AngularJS, which field from 'metric' do you want to use? id
+? Do you want to add any validation rules to this relationship? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Relationships
+goal (Goal) many-to-one 
+metric (Metric) many-to-many 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Entry =================
+Fields
+date (LocalDate) required 
+exercise (Integer) required 
+meals (Integer) 
+alcohol (Integer) 
+notes (String) 
+Relationships
+goal (Goal) many-to-one 
+metric (Metric) many-to-many 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should u
+se the repository directly
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+   create .jhipster/Entry.json
+? Overwrite src/main/resources/ehcache.xml? overwrite
+    force src/main/resources/ehcache.xml
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+    force src/main/resources/config/liquibase/master.xml
+? Overwrite src/main/webapp/app/layouts/navbar/navbar.html? overwrite
+    force src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/i18n/en/global.json? overwrite
+    force src/main/webapp/i18n/en/global.json
+   create src/test/javascript/spec/app/entities/entry/entry-Running gulp Inject to add javascript to index
+[16:40:20] Using gulpfile /mnt/FDEV/workspacejhipster02/prj21points02/gulpfile.js
+[16:40:20] Starting 'inject:app'...
+[16:40:20] gulp-inject 121 files into index.html.
+[16:40:20] Finished 'inject:app' after 247 ms
+
+
+Test Build
+--------------------
+./gradlew test
+
+Issues: Relations are not build
+
+- Manually created  Models
+prj21points02/src/main/java/org/jhipster/health/domain/Entry.java
+	@ManyToMany
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	@JoinTable(name = "ENTRY_GOAL",
+	joinColumns = @JoinColumn(name="entries_id", referencedColumnName="ID"),
+		inverseJoinColumns = @JoinColumn(name="goals_id", referencedColumnName="ID"))
+	private Set<Goal> goals = new HashSet<>();
+	public Set<Goal> getGoals() {
+	return goals;
+	}
+	public void setGoals(Set<Goal> goals) {
+	 
+	this.goals = goals;
+	}
+
+
+prj21points02/src/main/java/org/jhipster/health/domain/Metric.java
+    @ManyToMany(mappedBy = "goals")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Entry> entries = new HashSet<>();
+
+	@ManyToMany
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	@JoinTable(name = "METRIC_GOAL",
+	joinColumns = @JoinColumn(name="metrics_id", referencedColumnName="ID"),
+		inverseJoinColumns = @JoinColumn(name="goals_id", referencedColumnName="ID"))
+	private Set<Goal> goals = new HashSet<>();
+	
+
+prj21points02/src/main/java/org/jhipster/health/domain/Goal.java
+	@ManyToMany
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	@JoinTable(name = "GOAL_METRIC",
+	joinColumns = @JoinColumn(name="goals_id", referencedColumnName="ID"),
+		inverseJoinColumns = @JoinColumn(name="metrics_id", referencedColumnName="ID"))
+	private Set<Metric> metrics = new HashSet<>();
+	public Set<Metric> getMetrics() {
+	return metrics;
+	}
+	public void setMetrics(Set<Metric> metrics) {
+	 
+	this.metrics = metrics;
+	}
+
+-- Than ran 
+./gradlew liquibaseDiffChangelog
+
+* Issues org.postgresql.util.PSQLException: FATAL: role "21points" does not exist
+-- Ignore the above and ran: gradlew
+
+
+-- Run applicaiton
+gradlew
+
+-- All went well
+
+
+Build Gradle GUI
+--------------------------
+gradlew --gui
+
+-- Gui version of build environment
+
+
+Change Edit Goal UserName
+-----------------------------------
+o Drop down is showing: id and not username
+-- Need to show login
+
+o Change jhipster/Goal.json
+-- change from : "otherEntityField": "id",
+            to : "otherEntityField": "login"
+
+The entity goal is being updated.
+
+? Do you want to update the entity? This will replace the existing files for this entity, all your custom code will be overw
+ritten Yes, re generate the entity
+ conflict src/main/java/org/jhipster/health/domain/Goal.java
+? Overwrite src/main/java/org/jhipster/health/domain/Goal.java? do not overwrite
+
+
+o gralew
+-- All went well
+
+
+
+Change Edit Goal UserName - Version 2
+---------------------------------------
+o src/main/webapp/scripts/app/entities/goal/goal-dialog.html form:
+<select class="form-control" id="field_user" name="user" ng-model="goal.user.id" ng-
+options="user.id as user.id for user in users">
+
+to:
+
+<select class="form-control" id="field_user" name="user" ng-model="goal.user.id" ng-
+options="user.id as user.login for user in users">
+
+
+
+Git Commit
+----------------
+git add -A
+git status
+-- All green
+
+git commit -m "Checkin of 21-points 1st round of entities"
+
+git push --set-upstream origin jhispster_entities_v2
+
+
+
+
+

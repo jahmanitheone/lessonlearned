@@ -1,0 +1,69 @@
+Install the docker package
+-------------------------------
+- Validate kernel
+uname -r
+4.8.6-300.fc25.x86_64
+
+- Update pacakges
+sudo dnf update
+
+- Add YUM repo, create shell script: yumrepo.sh
+
+sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/fedora/$releasever/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+
+
+Unstall Docker
+-------------------
+
+- List installed packages and show docker
+dnf list installed | grep docker
+
+- Remove the package
+sudo dnf -y remove docker-engine.x86_64
+
+- remove all images
+ rm -rf /var/lib/docker 
+
+
+Start Docker
+-----------------------
+- enable service
+sudo systemctl enable docker.service
+
+- sart docker daemon
+sudo systemctl start docker
+
+-- sudo docker run --rm hello-world
+Unable to find image 'hello-world:latest' locally
+Trying to pull repository docker.io/library/hello-world ... 
+sha256:0256e8a36e2070f7bf2d0b0763dbabdd67798512411de4cdcf9431a1feb60fd9: Pulling from docker.io/library/hello-world
+
+o Dockeer is running!
+
+
+- Say hello
+sudo docker run fedora /bin/echo hello world
+
+
+Create a docker group
+-----------------------------
+
+- create docker group
+sudo groupadd docker
+
+- add moe to group
+sudo usermod -aG docker pchauvet
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+Windows
+---------------------------
+o Download docker: InstallDocker.msi
+-- Minimum Windows Need Windows 10. I have windows 7.
+
+o Now download DoclerToolBox:
+* See:
+https://docs.docker.com/toolbox/toolbox_install_windows/#step-1-check-your-version
+https://docs.docker.com/docker-for-windows/#check-versions-of-docker-engine-compose-and-machine
+https://docs.docker.com/toolbox/toolbox_install_windows/
+- Allow docker to run in Windows 7
+DockerToolbox.exe
+
+o Install 
+DockerToolbox.exe
+- Follow Splash screen
+
+o First Run of Docker
+- Run "Docker Quickstart Terminal"
+*** Did not work, dockere was complaining that VT-X needed to be installed
+- After readking the message carefully, it says that the BIOS had to be configed
+
+o Config HP biov to allow Virtualization
+- Enter F2 on machine restart
+- Select:
+Advance
+Device Config
+Virtualization Tech VTX
+
+o First Run of Docker Agatin
+- Run "Docker Quickstart Terminal"
+- YEAH!
+- try these commands:
+docker info
+docker version
+docker ps
+
+All should be ok!
+
+
+Install Docker Using Windows 32
+----------------------------------------------
+- Open Command Line as "Run As Adminstrator"
+- Use windows tool: Chocolatey 
+
+o Install tool Chocolatey
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+- Test install:
+Type at command prompt: chocolatey
+* See a message
+Chocolatey v0.10.7
+Please run 'choco -?' or 'choco <command> -?' for help menu.
+
+o Install Docker:
+choco install docker
+- Prompt for this and that, obey script to proceed
+ The install of docker was successful.
+  Software installed to 'C:\ProgramData\chocolatey\lib\docker\tools'
+
+o Test docker install:
+Type on command line: docker* 
+* A bunch of docker command line info appears
+
+Install Docker Compose
+-------------------------------------------------------
+docker --version
+* docker --version
+
+o Install Docker Compose
+choco install docker-compose  
+
+o Check version
+docker-compose --version
+docker-compose version 1.13.0, build 1719ceb8
+
+
+
+Install Docker  Machine
+-------------------------------------------------------
+choco install docker-machine
+
+docker-machine.exe version 0.12.0, build 45c69ad
+
+
+Explore the application and run examples
+---------------------------------------------
+o Exit admin command line
+
+Try these commands
+-----------------------
+** Did not work
+
+

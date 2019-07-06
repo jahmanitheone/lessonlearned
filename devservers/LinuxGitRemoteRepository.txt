@@ -1,0 +1,59 @@
+github.com
+--------------------
+jahmanitheone@outlook.com doxxpyyy<tt> - software dev
+    -- My personal stuff private
+    https://github.com/jahmanitheone
+    
+pchauvet@outlook.com  doxxpyyy<tt>* - sofware dev
+    -- Share whatever with world
+    
+** Has dbuniit
+aikiinc@gmail.com doxxaiki<tt>
+    -- Best work with Aiki Innovations Inc
+    Other email aikiinnovations@gmail.com doxxaiki<tt>
+	Work:
+		https://github.com/aikiinc
+
+** Has heroku
+abc1260@outlook.com doitgit<11>*
+
+
+
+Create Local Git Repository
+-----------------------------------------------------
+
+o Clone Local Reposito
+
+git clone https://github.com/abc1260/axis2mavenprj02.git
+
+
+
+o Review changes
+git status
+
+
+o Init working directory with change
+-- Always init entire working directory
+
+git add .
+git add -A
+git commit -m "Initial Create Axis2 Maven Bare Bone Project"
+
+
+o Review changes
+git status
+
+
+o Review log
+git log
+
+
+
+Finally Push Changes To Repository
+-----------------------------------------------
+git push
+
+- Use pass word of repo
+
+
+

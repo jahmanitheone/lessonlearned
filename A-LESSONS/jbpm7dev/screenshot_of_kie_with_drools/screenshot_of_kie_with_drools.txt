@@ -1,0 +1,136 @@
+Import Project DTOs
+---------------------------------------
+hx-eligibility-dto.jar
+
+MI_Main
+---------------------------------------
+o Define imports
+o Define vars
+member  com.csra.eligibility.domain.entity.member.Member;
+eligibilityMain com.csra.eligibility.domain.process.EligibilityMain;
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+
+GateWay
+-------------------
+N:
+if ( eligibilityMain != null && !eligibilityMain.isPreCheckStale() ) {
+    System.out.println("Gateway(" + kcontext.getNodeInstance().getNodeName() + ") is: " + eligibilityMain.isPreCheckStale() ); 
+    return true;
+}
+
+return false;
+
+Y:
+if ( eligibilityMain != null && eligibilityMain.isPreCheckStale() ) {
+    System.out.println("Gateway(" + kcontext.getNodeInstance().getNodeName() + ") is: " + eligibilityMain.isPreCheckStale() ); 
+    return true;
+}
+
+return false;
+
+
+Ineligibility Prechecks
+------------------------------
+Data Inputs (3):
+member  com.csra.eligibility.domain.entity.member.Member;
+eligibilityMain com.csra.eligibility.domain.process.EligibilityMain;
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+Data Outputs (2):
+member  com.csra.eligibility.domain.entity.member.Member;
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+
+
+On Entry:
+System.out.println("");
+System.out.println("Process ("+kcontext.getProcessInstance().getProcessName() + ") Task: " + kcontext.getNodeInstance().getNodeName());
+
+
+if (eligibilityMain != null)
+  System.out.println("1a eligibilityMain:" + eligibilityMain);
+
+if (member != null)
+  System.out.println("1a member:" + member);
+
+if (eligibilityResult != null)
+  System.out.println("1a eligibilityResult:" + eligibilityResult);
+
+
+On Exit:
+System.out.println("Process ("+kcontext.getProcessInstance().getProcessName() + ") Task: " + kcontext.getNodeInstance().getNodeName());
+
+if( eligibilityResult != null ) {
+  //System.out.println("eligibilityResult: " + eligibilityResult);
+  EligibilityResult teligibilityResult = (EligibilityResult) eligibilityResult;
+  if (teligibilityResult.isTouched() && !teligibilityResult.isEligibleStatus()) {
+      EligibilityMain teligibilityMain = (EligibilityMain) eligibilityMain;			
+      teligibilityMain.setInEligible(true);
+          
+      System.out.println("    *eligibilityMain.isInEligible(): " + teligibilityMain.isInEligible() );
+  }
+  
+  System.out.println(member);
+}
+  
+System.out.println("");
+
+
+MI_MainSub_Ineligibility 
+--------------------------------
+o Define imports
+o Define vars
+member  com.csra.eligibility.domain.entity.member.Member;
+eligibilityMain com.csra.eligibility.domain.process.EligibilityMain;
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+
+
+Task Script Rule_eligibility:
+System.out.println("Process ("+kcontext.getProcessInstance().getProcessName() + ") Task: " + kcontext.getNodeInstance().getNodeName());
+
+
+Task Rule Rule_eligibility:
+Data Inputs (2):
+member  com.csra.eligibility.domain.entity.member.Member;
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+Data Outputs (1):
+eligibilityResult com.csra.eligibility.domain.rulefact.EligibilityResult;
+
+
+eligibility_prechecks.drl
+---------------------------------
+package com.csra.eligibility.workflow.medicalincome.rules;
+
+import com.csra.eligibility.domain.entity.member.Member;
+import com.csra.eligibility.domain.rulefact.EligibilityResult;
+import java.util.Date;
+
+rule "HouseHold Income Over Limit"	
+	ruleflow-group "eligibility_prechecks"
+	when
+		$m: Member(houseHoldIncome > 50000)
+		$eliResult: EligibilityResult()
+	then
+		System.out.println("*Fired Rule - " +  drools.getRule().getName());
+		
+			//Set result to - inEligible
+		$eliResult.setTouched(true);	
+		$eliResult.setEligibleStatus(false);	
+		$eliResult.setReason("HouseHold Income Over Limit");
+		
+		System.out.println("*Fired Rule STOP");
+end
+
+
+MI_Main-taskform 
+-----------------------------
+Need:
+stale
+First, Last Name
+DOB
+houseHoldIncome
+reason
+
+
+Screen SVG files
+---------------------
+Need to create on  save
+

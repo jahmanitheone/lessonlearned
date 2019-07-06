@@ -1,0 +1,64 @@
+Uninstall Cloud Foundry
+-------------------------------
+gem uninstall cf
+* If already installed
+
+Install Cloud Foundry
+-------------------------------
+gem uninstall cf
+
+o Dowload from Linux 64 bit
+https://github.com/cloudfoundry/cli/releases:
+cf-cli-installer_6.21.1_x86-64.rpm 
+
+o Install
+sudo rpm -i cf-cli-installer_6.21.1_x86-64.rpm 
+
+whereis cf
+cf: /usr/bin/cf
+
+
+Geting Started Cloud Foundry
+-------------------------------
+o Language
+
+cf config --locale en-US
+
+o Login
+
+https://account.run.pivotal.io
+eazybreazyone@gmail.com isphil11
+org: eazybreazy-org
+
+cf login -a api.run.pivotal.io -u eazybreazyone@gmail.com
+Password: isPhil<TT>!
+
+Upload A Java Application To Pivotal Using Cloud Foundary
+o Create war:
+/run/media/pchauvet/LDEV/workspacejhispster00/bookstore2/target/bookstore-0.0.1-SNAPSHOT.war
+
+o cf api
+https://api.run.pivotal.io
+
+o Upload App
+cf push bookstore-app -p bookstore-0.0.1-SNAPSHOT.war
+* app was pretty large 9.1M
+
+
+o Had errors - View logs:
+cf logs bookstore-app --recent
+* Datasource error
+.... Failed to load java.util.ServiceConfigurationError: org.cloudfoundry.reconfiguration.org.springframework.cloud.service.ServiceConnectorCreator: Provider
+.....tionConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'liquibase' defined in class path resource [com/bookstore/config/DatabaseConfiguration.class]: Unsatisfied dependency expressed through method 'liquibase' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [com/bookstore/config
+
+o Fixed by creating DataSource
+
+cf create-service elephantsql turtle liquibase
+cf bind-service bookstore-app liquibase
+
+
+o App Started at:
+http://bookstore-app.cfapps.io/
+
+
+

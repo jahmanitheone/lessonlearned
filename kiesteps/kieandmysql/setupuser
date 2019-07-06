@@ -1,0 +1,14 @@
+JBOSS_HOME=./wildfly-10.1.0.Final
+echo .
+echo JBOSS_HOME=$JBOSS_HOME
+echo .
+
+CMD="$JBOSS_HOME/bin/add-user.sh -a $1 $1 --user-properties $JBOSS_HOME/standalone/configuration/users.properties"
+CMD="$CMD --group-properties $JBOSS_HOME/standalone/configuration/roles.properties --realm ApplicationRealm"
+
+echo .
+echo CMD=$CMD
+echo .
+
+$CMD
+

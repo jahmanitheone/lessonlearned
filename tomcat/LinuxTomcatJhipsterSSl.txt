@@ -1,0 +1,35 @@
+1. Add security constraint to web.xml of j2ee webapp
+---------------------------------------------------------
+a. Tomcat has example at /opt/apache-tomcat-8.5.5/webapps/demo2/WEB-INF
+b. Use my script to start tomcat: tomcatstart
+
+
+2. View with no SSL
+---------------------------------------------------------
+http://localhost:8080/demo2/
+
+
+3. Retry example after restarting tomcat
+-------------------------------------------------------------
+o https://localhost:8443/demo2/
+a. Firefox
+- We get "Your connection is not secure"
+- Select Advanced, Select "Add Exception", "Confirm Security Exception"
+- We get a triangle orange icon at the location bar
+- Click it and select location right arrow
+- Select "More Information", "This website does not supply ownership information."
+- It's ok to use SSL
+b. Google
+- We get a triangle red icon at the location bar
+- Click it and select Details
+- We see: "This page is insecure (broken HTTPS)."
+- It's ok to use SSL
+
+
+
+
+
+
+
+
+

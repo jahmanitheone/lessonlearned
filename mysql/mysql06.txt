@@ -1,0 +1,25 @@
+Issue: tables were corrupted
+--------------------------------------
+o Could not delete tables
+
+Solution:
+---------------------
+o remove mysql physical tables from:
+/opt/lampp/var/mysql/bitnami_wordpress
+Ex:
+usd_dsp_date_tracker_message.frm
+usd_dsp_date_tracker_message.idb
+usd_dsp_date_tracker_message.MYD
+usd_dsp_date_tracker_message.MYI
+
+---
+Droped theist tables:
+
+DROP TABLESPACE phpfreecha;
+DROP TABLE usd_app_pageinfo;
+DROP TABLE usd_dsp_dicount_codes;
+DROP TABLE usd_dsp_promotions;
+DROP TABLE usd_dsp_template_images;
+DROP TABLE usd_dsp_user_online;
+DROP TABLE usd_dsp_user_profiles;
+

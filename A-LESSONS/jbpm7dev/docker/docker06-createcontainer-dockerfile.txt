@@ -1,0 +1,209 @@
+Create Custom Container Using dockere file
+-----------------------------------------------------
+o Creating a sample repository
+mkdir static_web
+cd static_web
+touch Dockerfile
+
+- static_web is docker's context
+- build context
+
+
+o Create an empty static_web/Dockerfile
+# Version: 0.0.1
+FROM ubuntu:16.04
+MAINTAINER James Turnbull "james@example.com"
+RUN apt-get update; apt-get install -y nginx
+RUN echo 'Hi, I am in your container' \
+>/var/www/html/index.html
+EXPOSE 80
+
+- FROM
+runs a container from the image ubunter, tag 16.04
+- MAINTAINER
+Author and email address
+- RUN 
+execute series of commands:
+apt-get update; 
+apt-get install -y nginx
+- echo
+echo text to a file
+EXPOSE 80
+- specific port on the container: 80
+* No docker keywords are uppercase
+
+
+o Building the image from our Dockerfile
+cd static_web
+docker build -t="jamtur01/static_web" .
+
+o Command break down
+- -t option to mark our resulting image with a repository and a name, 
+repository:jamtur01 
+image:static_web
+. tells Docker to look in the local directory
+
+
+See:
+- Docker downloads ubuntuSending build context to Docker daemon  2.048kB
+Step 1/5 : FROM ubuntu:16.04
+ ---> 7b9b13f7b9c0
+Step 2/5 : MAINTAINER James Turnbull "james@example.com"
+ ---> Running in b23202e2f6ed
+ ---> 1163b8a6910d
+Removing intermediate container b23202e2f6ed
+Step 3/5 : RUN apt-get update; apt-get install -y nginx
+ ---> Running in 514c5d828fa3
+.
+Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial InRelease [247 kB]
+Get:3 http://security.ubuntu.com/ubuntu xenial-security/universe Sources [35.1 kB]
+Get:4 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [354 kB]
+.
+Processing triggers for systemd (229-4ubuntu17) ...
+ ---> 4346e4581d91
+Removing intermediate container 514c5d828fa3
+Step 4/5 : RUN echo 'Hi, I am in your container' >/var/www/html/index.html
+ ---> Running in 6bbc9a1dfc36
+ ---> 205851b655a5
+Removing intermediate container 6bbc9a1dfc36
+Step 5/5 : EXPOSE 80
+ ---> Running in 338cf5e26189
+ ---> af5ff3c9d141
+Removing intermediate container 338cf5e26189
+Successfully built af5ff3c9d141
+Successfully tagged jamtur01/static_web:latest
+-
+
+* Note: 
+After each, a docker commit happens, and a version is created
+Ex:  af5ff3c9d141
+Context is sent to docker daemon:
+Sending build context to Docker daemon  2.048kB
+
+Debuggin Up to A Build Instruction Issue
+---------------------------------------------
+o Add a bad instruction in dockere file:
+RUN apt-get update; apt-get install -y ngin
+- ngin instead of nginx
+
+o Rerun build
+docker build -t="jamtur01/static_web" .
+
+See:
+Build shows error and stops after version: 1163b8a6910d
+
+o Create container up to valid version: 1163b8a6910d
+docker run -t -i 1163b8a6910d /bin/bash
+
+-i: provides up to the last version and open a bash shell
+
+- manually continue wit command:
+apt-get update; 
+apt-get install -y nginx
+echo 'Hi, I am in your container' > /var/www/html/index.html
+EXPOSE 80
+
+
+
+Using the build cache for templating
+-------------------------------------------
+o Skipping cache: --no-cache flag
+
+sudo docker build --no-cache -t="jamtur01/static_web" .
+- Starts who build
+
+
+Using the build cache for templating
+-------------------------------------------------
+#A template Ubuntu Dockerfile
+FROM ubuntu:16.04
+MAINTAINER James Turnbull "james@example.com"
+ENV REFRESHED_AT 2016-07-01
+RUN apt-get -qq update
+
+Comment:
+ENV REFRESHED_AT 2016-07-01
+- Create an enviroment variable dating build
+apt-get -qq update 
+- Rerun and my package cache is refreshed with the latest content.
+
+
+
+Viewing our new image
+----------------------------
+o Use: docker image
+docker images jamtur01/static_web
+
+o View more detail of image build: docker history
+docker history c04427908fe7
+
+IMAGE               CREATED             CREATED BY                                      SIZE
+c04427908fe7        4 minutes ago       /bin/sh -c apt-get -qq update                   38.4MB
+56df520bd493        4 minutes ago       /bin/sh -c #(nop)  ENV REFRESHED_AT=2016-0...   0B
+c7e963374851        10 minutes ago      /bin/sh -c #(nop)  MAINTAINER James Turnbu...   0B
+7b9b13f7b9c0        9 days ago          /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
+<missing>           9 days ago          /bin/sh -c mkdir -p /run/systemd && echo '...   7B
+<missing>           9 days ago          /bin/sh -c sed -i 's/^#\s*\(deb.*universe\...   2.76kB
+<missing>           9 days ago          /bin/sh -c rm -rf /var/lib/apt/lists/*          0B
+<missing>           9 days ago          /bin/sh -c set -xe   && echo '#!/bin/sh' >...   745B
+<missing>           9 days ago          /bin/sh -c #(nop) ADD file:5aff8c59a707833...   118MB
+
+
+
+Launching a container from our new image
+------------------------------------------------
+o Running our configuration: docker run
+docker run -d -p 80 --name static_web jamtur01/static_web nginx -g "daemon off;"
+* It showed a conflict, with name:
+:\Program Files\Docker Toolbox\docker.exe: Error response from daemon: Conflict. The container name "/static_web" is already in use by container "420363c14f
+
+o Rerun without --name param
+docker run -d -p 80 jamtur01/static_web nginx -g "daemon off;"
+ 
+--name static-web
+* A new container called: static_web 
+-d option
+* Tells Docker to run detached, in the background
+-g "daemon off;"
+* Turn off background, run foreground
+-p
+* manages which network ports. @ ways:
+• docker Randomly assign a high port from the range 32768 to 61000 on and maps to 80
+• Specify a specific port host that maps to port 80
+* Here -p 80 chose rando ports
+
+o See random port assigned:
+docker ps -l
+See:
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                   NAMES
+98bd31e69d07        jamtur01/static_web   "nginx -g 'daemon ..."   26 seconds ago      Up 25 seconds       0.0.0.0:32778->80/tcp   confident_davinci
+
+o Other teqn to get port: docker port
+docker port 98bd31e69d07
+80/tcp -> 0.0.0.0:32778
+
+
+o Bind to a specific port 
+docker run -d -p 80:80 --name static_web_80 jamtur01/static_web nginx -g "daemon off;"
+* Try to avoid port 80, use another like 8080
+
+docker run -d -p 80:8080 --name static_web_8080 jamtur01/static_web nginx -g "daemon off;"
+
+o Bind to an interface
+docker run -d -p 127.0.0.1:80:80 --name static_web_lb jamtur01/static_web nginx -g "daemon off;"
+
+o Publish to all ports:
+docker run -d -P --name static_web_all jamtur01/static_web nginx -g "daemon off;"
+
+o See random port assigned:
+docker run -d jamtur01/static_web nginx -g "daemon off;"
+docker ps -l
+
+Error:
+* curl: (7) Failed to connect to 127.0.0.1 port 80: Connection refused
+
+docker run -d -P jamtur01/static_web nginx -g "daemon off;"
+ 
+docker run -it -p 8082:8082 jamtur01/static_web -g "daemon off;"
+

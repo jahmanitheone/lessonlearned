@@ -1,0 +1,43 @@
+#####################################################################################
+# Dockerfile that provides the image for JBoss KIE Workbench 7.0.0.Final Showcase
+#####################################################################################
+
+####### BASE ############
+FROM lhwong/kie-workbench:latest
+
+####### MAINTAINER ############
+MAINTAINER "Michael Biarnes Kiefer" "mbiarnes@redhat.com"
+
+####### ENVIRONMENT ############
+# Use demo and examples by default in this showcase image (internet connection required).
+ENV KIE_DEMO true
+ENV KIE_SERVER_PROFILE standalone-kie
+ENV DB_DRIVER_DOWNLOAD_URL https://repository.jboss.org/nexus/service/local/repositories/central/content/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar
+
+
+####### KIE Workbench CUSTOM CONFIGURATION ############
+ADD etc/standalone-kie.xml $JBOSS_HOME/standalone/configuration/standalone-kie.xml
+ADD etc/users.properties $JBOSS_HOME/standalone/configuration/users.properties
+ADD etc/roles.properties $JBOSS_HOME/standalone/configuration/roles.properties
+
+####### DATABASE ############
+RUN mkdir -p $JBOSS_HOME/modules/com && \
+mkdir -p $JBOSS_HOME/modules/com/mysql && \
+mkdir -p $JBOSS_HOME/modules/com/mysql/main 
+ADD etc/mysql_module.xml $JBOSS_HOME/modules/com/mysql/main/module.xml
+RUN curl -o $JBOSS_HOME/modules/com/mysql/main/mysql-connector-java.jar $DB_DRIVER_DOWNLOAD_URL 
+
+
+# Added files are chowned to root user, change it to the jboss one.
+USER root
+RUN chown jboss:jboss $JBOSS_HOME/standalone/configuration/standalone-kie.xml && \
+chown jboss:jboss $JBOSS_HOME/standalone/configuration/users.properties && \
+chown jboss:jboss $JBOSS_HOME/standalone/configuration/roles.properties && \
+chown jboss:jboss $JBOSS_HOME/modules/com/mysql/main/module.xml
+
+# Switchback to jboss user
+USER jboss
+
+####### RUNNING DROOLS-WB ############
+WORKDIR $JBOSS_HOME/bin/
+CMD ["./start_kie-wb.sh"]

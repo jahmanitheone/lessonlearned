@@ -1,0 +1,17 @@
+-----------------------------------
+MYSQL Workbench Install
+-----------------------------------
+Download from http://dev.mysql.com/downloads/file/?id=463751
+- choose linux fedora install with RPM
+mysql-workbench-community-6.3.7-1.fc23.x86_64.rpm
+
+
+Install Mysql
+---------------------------------------
+dnf -y update
+dnf -y install mysql-server mysql
+
+
+Start MySQL (now MariaDB)
+---------------------------------------
+systemctl start mariadb

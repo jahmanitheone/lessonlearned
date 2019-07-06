@@ -1,0 +1,3 @@
+eGit Does not work.
+
+Install "Collabnet git" - that worked

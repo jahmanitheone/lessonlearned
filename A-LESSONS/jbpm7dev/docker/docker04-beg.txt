@@ -1,0 +1,103 @@
+Install Ubuntu Image
+----------------------------------
+docker run -i -t --name another_container_mum ubunt /bin/bash
+
+o Show docker image
+docker images
+-
+REPOSITORY          TAG                 IMAGE ID            CREATED  	SIZE
+ubuntu              latest              7b9b13f7b9c0        8 days ago  118MB
+
+Workgin with docker images
+-----------------------------------
+o Pull Ubuntu Image Tag 16.04
+sudo docker pull ubuntu:16.04
+
+o See our images with image Tag 
+docker images
+-
+REPOSITORY          TAG                 IMAGE ID            CREATED  	SIZE
+ubuntu              16.04               7b9b13f7b9c0        8 days ago  118MB
+ubuntu              latest              7b9b13f7b9c0        8 days ago  118MB
+
+o Running a Ubuntue specific image
+docker run -t -i --name new_container ubuntu:16.04 /bin/bash
+- The repository-then :-then version
+- Ubuntu is started
+
+
+Pulling Fedora Image Tag 21
+------------------------------------
+docker pull fedora:21
+
+
+o Show specific docker image
+docker images fedora
+
+-
+REPOSITORY 	TAG 	IMAGE ID 		CREATED 	VIRTUAL SIZE
+fedora 		21 		7d3f07f8de5f 	6 weeks ago 374.1 MB
+
+
+Searching Images
+------------------------------------------
+docker search puppet
+
+-
+NAME                                DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+devopsil/puppet                     Dockerfile for a container with puppet ins...   23                   [OK]
+devopsil/puppet-yum                                                                 5                    [OK]
+vladgh/puppet                       Ubuntu 16.04 LTS Base image with Puppet         2                    [OK]
+solict/provisionous-puppet-centos   CentOS provisions with Puppet included          2                    [OK]
+lewislambert/puppet                 Dockerised Puppet Master and Puppet Agent       1                    [OK]
+.
+.
+
+
+Build Own Docker Image Container
+------------------------------------
+o Pull own image
+docker pull jamtur01/puppetmaster
+
+o Run image
+docker run -i -t jamtur01/puppetmaster /bin/bash
+
+o Run container application: facter
+facter
+- Out is:
+architecture => amd64
+augeasversion => 1.2.0
+blockdevice_sda_model => VBOX HARDDISK
+blockdevice_sda_size => 20971520000
+blockdevice_sda_vendor => ATA
+blockdevice_sr0_model => CD-ROM
+blockdevice_sr0_size => 40894464
+blockdevice_sr0_vendor => VBOX
+blockdevices => sda,sr0
+domain => home
+facterversion => 1.7.5
+filesystems => cramfs,ext2,ext3,ext4,iso9660,squashfs,
+fqdn => df60164ec563.home
+hardwareisa => x86_64
+hardwaremodel => x86_64
+hostname => df60164ec563
+
+o Validate the puppet version:
+puppet --version
+3.4.3
+
+
+Building our own images
+====================================
+o Create Docker account:
+docker.com
+pchavetdocker Docker11-
+
+docker login
+Login with your Docker ID to push and pull images from Docker Hub. If y
+er.com to create one.
+Username: pchauvetdocker
+Password:
+Login Succeeded
+
+docker logout

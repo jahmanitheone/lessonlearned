@@ -1,0 +1,235 @@
+process
+-------------------------
+There are three proces:
+reusableSubProcess-Parent.bpmn
+reusableSubProcess-Child.bpmn
+embeddedSubProcess.bpmn
+
+dynami process
+---------------------------------
+carTaggerProcess.bpmn
+dynamicReusableSubProcess-Parent.bpmn
+personTaggerProcess.bpmn
+
+
+reusableSubProcess-Parent.bpmn
+--------------------
+o main property
+id: org.plugtree.training.jbpm.reusablesubprocessparent
+package: org.plugtree.training.jbpm
+
+o Has two artifacts
+- Script
+Name: Format tag
+Script:
+System.out.println("Parent-process id = "+kcontext.getProcessInstance().getId());
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm-dd-yyyy");
+kcontext.setVariable("tag",  sdf.format(new java.util.Date(System.currentTimeMillis())));
+- Subtask
+Name: Message-Tagger-Process
+Process Id: org.plugtree.training.jbpm.reusablesubprocesschild
+* The sub process has found by Process Id:
+
+
+System.out.println("*"+kcontext.getProcessInstance().getId());
+
+reusableSubProcess-Child.bpmn
+---------------------------
+Id: org.plugtree.training.jbpm.reusablesubprocesschild
+Name: reusableSubProcess.Child
+package: org.plugtree.training.jbpm
+Action:
+System.out.println("Child-process id = "+kcontext.getProcessInstance().getId());
+java.util.List<String> taggedMessages = new java.util.ArrayList<String>();
+for (Object message : internalMessages){
+    taggedMessages.add(((String)message)+"-"+internalTag);    
+}
+kcontext.setVariable("internalMessages",taggedMessages);
+
+
+
+embeddedSubProcess.bpmn
+------------------------------
+o main 
+id: org.plugtree.training.jbpm.embeddedsubprocess
+name: embeddedSubProcess.b
+package: org.plugtree.training.jbpm
+
+o Script: Apply Tagg
+Action:
+java.util.List<String> taggedMessages = new java.util.ArrayList<String>();
+for (Object message : messages){
+    taggedMessages.add(((String)message)+"-"+tag);    
+}
+kcontext.setVariable("messages",taggedMessages);
+
+
+
+ReusableSubProcessTest.java
+------------------------------
+    @Test
+    public void reusableProcessTest(){
+        
+        List<String> messages = new ArrayList<String>();
+        messages.add("message 1");
+        messages.add("message 2");
+        messages.add("message 3");
+        
+        Map<String,Object> parameters = new HashMap<String, Object>();
+        parameters.put("messages", messages); 
+        
+        //Start the process using its id
+        ProcessInstance process = ksession.startProcess("org.plugtree.training.jbpm.reusablesubprocessparent",parameters);
+        
+        //The process will run until there are no more nodes to execute.
+        //Because this process doesn't have any wait-state, the process is
+        //running from start to end
+        Assert.assertEquals(ProcessInstance.STATE_COMPLETED, process.getState());
+        
+        //Because the process changed the reference of messages variable, we
+        //need to get it again.
+        //It is a good practice to retrieve the process variables after its 
+        //execution instead of use the old variables passed as parameters.
+        messages = (List<String>) ((WorkflowProcessInstance)process).getVariable("messages");
+        for (String message : messages) {
+            System.out.println("Message = "+message);
+        }
+    }
+
+
+dynamicReusableSubProcess-Parent.bpmn
+--------------------------------------------------
+* Call drools rule to process setting variable
+id: org.plugtree.training.jbpm.dynamicreusablesubprocessparent
+name: dynamicreusableSubProcess.Parent
+package: org.plugtree.training.jbpm
+
+Has four artificats:
+o Script: Format tag
+o Script: Prepare Decision Data
+o RuleTask: Select Proper SubProcess
+o SubProcess: Dynamic Tagger SubProcess
+o Rule: subProcessSelectionRules
+
+
+Script: Format tag
+----------------------
+java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm-dd-yyyy");
+kcontext.setVariable("tag",  sdf.format(new java.util.Date(System.currentTimeMillis())));
+
+Script: Prepare Decision Data
+----------------------
+System.out.println("*"+kcontext.getProcessInstance().getId());
+kcontext.getKnowledgeRuntime().insert(object);
+kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());	
+
+RuleTask: Select Proper SubProcess
+----------------------
+RuleFlowGroup: select_subprocess
+
+SubProcess: Dynamic Tagger SubProcess
+-------------------------------------
+* selectedSubProcessId is set in the rule
+Process id: #{selectedSubProcessId}
+
+
+Rule: subProcessSelectionRules
+-----------------------------------
+package org.plugtree.training.jbpm
+
+#list any import classes here.
+import org.plugtree.training.jbpm.model.Person
+import org.plugtree.training.jbpm.model.Car
+import org.drools.runtime.process.WorkflowProcessInstance;
+
+rule "Select Person Tagger"	
+	ruleflow-group "select_subprocess"
+	when
+		$process: WorkflowProcessInstance()
+		$p:Person()
+	then 
+		System.out.println("EAA");
+		((WorkflowProcessInstance)kcontext.getKnowledgeRuntime().
+		getProcessInstance($process.getId())).
+		setVariable("selectedSubProcessId","org.plugtree.training.jbpm.persontaggerprocess");
+		retract($p);
+		retract($process);
+end
+
+rule "Select Car Tagger"
+	ruleflow-group "select_subprocess"	
+	when
+		$process: WorkflowProcessInstance()
+		$c:Car()
+	then 
+		((WorkflowProcessInstance)kcontext.getKnowledgeRuntime().
+		getProcessInstance($process.getId())).
+		setVariable("selectedSubProcessId","org.plugtree.training.jbpm.cartaggerprocess");
+		retract($c);
+        retract($process);
+end
+
+
+Code Test
+---------------------
+    @Test
+    public void reusableProcessTest(){
+        //Test the process with a Person
+        String personName = "Mary";
+        Person person = new Person();
+        person.setName(personName);
+        Map<String,Object> parameters = new HashMap<String, Object>();
+        parameters.put("object", person);
+        
+        //Start the process using its id
+        ProcessInstance process = ksession.startProcess("org.plugtree.training.jbpm.dynamicreusablesubprocessparent",parameters);
+        //Because an activation exists, the process is waiting to fireAllRules()
+        Assert.assertEquals(ProcessInstance.STATE_ACTIVE, process.getState());
+        ksession.fireAllRules();
+        //Now the process is completed
+        Assert.assertEquals(ProcessInstance.STATE_COMPLETED, process.getState());
+        
+        //The right subprocess was chosen and the Person's name changed
+        System.out.println("Person's name= "+person.getName());
+        Assert.assertFalse(person.getName().equals(personName));
+        
+        
+        //Now test the process with a Car
+        String carBrand = "Ford";
+        String carModel = "Mustang";
+        Car car = new Car();
+        car.setBrand(carBrand);
+        car.setModel(carModel);
+        
+        parameters = new HashMap<String, Object>();
+        parameters.put("object", car);
+        //Start the process using its id
+        process = ksession.startProcess("org.plugtree.training.jbpm.dynamicreusablesubprocessparent",parameters);
+        //Because an activation exists, the process is waiting to fireAllRules()
+        Assert.assertEquals(ProcessInstance.STATE_ACTIVE, process.getState());
+        ksession.fireAllRules();
+        //Now the process is completed
+        Assert.assertEquals(ProcessInstance.STATE_COMPLETED, process.getState());
+        
+        //The right subprocess was chosen and the Person's name changed
+        System.out.println("Car's brand= "+car.getModel());
+        System.out.println("Car's model= "+car.getBrand());
+        Assert.assertFalse(car.getModel().equals(carModel));
+        Assert.assertFalse(car.getBrand().equals(carBrand));
+    }
+
+
+	
+if ( eligibilityMain.isPreCheckStale() ) {
+    System.out.println("Node(" + kcontext.getNodeInstance().getNodeName() + ") is: " + eligibilityMain.isPreCheckStale() ); 
+    return true;
+}
+
+return false;
+
+
+
+
+
+
+

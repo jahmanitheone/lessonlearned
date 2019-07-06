@@ -1,0 +1,32 @@
+Adding Virtual Host To Lammp To Apache
+-----------------------------------------------------
+o Lamp file location:
+/opt/lampp/etc/httpd.conf
+
+- Could not save, so change access to:
+cd /opt/
+sudo chmod +777 -R lampp
+
+
+o Add new configuration file at location
+-- Create file at etc/extra/httpd-gwt.conf
+- chmod +777 httpd-gwt.conf
+
+o Add to bottom of httpd.conf
+Include etc/extra/httpd-gwt.conf
+-- this content:
+Alias /pchauvethome "/mnt/FDEV/TOPASERVICE/pchauvetgwthomepage/20190515/"
+<Directory "/mnt/FDEV/TOPASERVICE/pchauvetgwthomepage/20190515/">
+   Options Indexes FollowSymLinks ExecCGI 
+   AllowOverride All
+   Require all granted
+</Directory>
+
+
+o Copy the remote file content to /mnt/FDEV/TOPASERVICE/pchauvetgwthomepage/20190515/
+
+o Access New Configuration
+http://localhost/pchauvethome
+
+
+

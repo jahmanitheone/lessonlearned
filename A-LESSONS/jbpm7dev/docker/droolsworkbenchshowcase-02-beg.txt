@@ -1,0 +1,65 @@
+https://hub.docker.com/r/jboss/drools-workbench-showcase/
+Prerequisite
+1. Use installed Kinematic Tool
+2. Search for "drools workbench"
+3. Select lhwong/kie-workbench-showcase
+4. Create 
+
+*Note: 
+	I remove all containers and images. See docker20-removecontainers.txt, docker20-removeimages.txt
+
+	Remove All Images and Container
+======================================
+o Remove all images
+docker rmi -f $(docker images -a -q)
+o Remove all containers
+docker rm -f $(docker ps -a -q)
+
+
+
+To run a container: wolan/drools-workbench-docker
+=================================
+docker run -d -p 32782:32782 lhwong/kie-workbench-showcase
+
+
+USER        PASSWORD    ROLE
+*************************************************
+admin       admin       admin,analyst,kiemgmt
+krisv       krisv       admin,analyst
+john        john        analyst,Accounting,PM
+mary        mary        analyst,HR
+sales-rep   sales-rep   analyst,sales
+katy        katy        analyst,HR
+jack        jack        analyst,IT
+salaboy     salaboy     admin,analyst,IT,HR,Accounting
+
+
+Create User In Wildfly
+===============================
+Go to exec on Kitematic Tool
+Select Exec
+
+cd /opt/jboss/wildfly/bin
+
+./add-user.sh -a -u admin -p admin -ro admin,kie-server,rest-all,kiemgmt
+./add-user.sh -a -u krisv -p krisv -ro admin,analyst
+./add-user.sh -a -u john -p john -ro analyst,Accounting,PM
+./add-user.sh -a -u kieserver -p kieserver -ro admin,kie-server,rest-all,kiemgmt
+
+Basic WildFly Server
+==========================
+o Admin console will not work here, we go to this page:
+http://192.168.99.100:32782/noredirect.html
+
+
+Access Admin Console
+=====================================
+http://192.168.99.100:32782/kie-wb/
+Login using:
+admin       admin     
+krisv       krisv    
+john        john  
+mary        mary
+     
+
+

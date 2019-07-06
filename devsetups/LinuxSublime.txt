@@ -1,0 +1,31 @@
+suInstall SublimeText 3
+-------------------------------------------
+curl -L "https://download.sublimetext.com/sublime_text_3_build_3143_x64.tar.bz2" --output /mnt/FBIN/SublimeText3.tar.bz2
+cd /mnt/FBIN/
+tar -xvjf SublimeText3.tar.bz2
+
+
+xxxcd /mnt/FBIN/sublime_text_3
+xxxchmod +765 sublime_text_3 
+
+
+-- Create my bin executable
+cd /mnt/FBIN/bin
+-- Create file: sublime
+#!/bin/sh
+
+if [ "$1" == "--help" ]; then
+    /mnt/FBIN/sublime_text_3/sublime_text --help
+else
+    /mnt/FBIN/sublime_text_3/sublime_text $@ > /dev/null 2>&1 &
+fi
+-- Make sublime executable
+chmod +x sublime
+
+-- Create symbolic link to: subl
+ln -s sublime subl
+ls -l
+* See : subl -> sublime
+
+
+

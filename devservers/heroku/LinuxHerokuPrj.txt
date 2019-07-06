@@ -1,0 +1,674 @@
+Create A Jhipster Project
+------------------------------------
+* See LinuxHerokueProgress.txt
+
+o Create working directory
+/mnt/FDEV/workspaceheroku/pchauvetonheroku
+
+o Start jhipster
+yo jhipster
+
+Welcome to the JHipster Generator v3.7.1
+Documentation for creating an application: https://jhipster.github.io/creating-an-app/
+Application files will be generated in folder: /mnt/FDEV/workspaceheroku/pchauvetonheroku
+? (1/13) Which *type* of application would you like to create? Monolithic application (recommended for 
+simple projects)
+? (2/13) What is the base name of your application? pchauvetonheroku
+? (3/13) What is your default Java package name? com.david.herokudemo
+? (4/13) Which *type* of authentication would you like to use? HTTP Session Authentication (stateful, d
+efault Spring Security mechanism)
+? (5/13) Which *type* of database would you like to use? SQL (H2, MySQL, MariaDB, PostgreSQL, Oracle)
+? (6/13) Which *production* database would you like to use? PostgreSQL
+? (7/13) Which *development* database would you like to use? PostgreSQL
+? (8/13) Do you want to use Hibernate 2nd level cache? Yes, with ehcache (local cache, for a single nod
+e)
+? (9/13) Would you like to use Maven or Gradle for building the backend? Maven
+? (10/13) Which other technologies would you like to use? (Press <space> to select)
+? (11/13) Would you like to use the LibSass stylesheet preprocessor for your CSS? No
+? (12/13) Would you like to enable internationalization support? No
+? (13/13) Which testing frameworks would you like to use? (Press <space> to select)Gatling
+
+Server app generated successfully.
+
+Change Project Connection
+------------------------------------
+pchauvetonheroku/src/main/resources/config/application-dev.yml
+-- Change datasource
+	url:jdbc:postgresql://localhost:5432/planets
+	username: pchauvet
+-- Repeat for application-prod.yml
+
+	
+Access Project From IntelliJ Idea
+------------------------------------
+o Import Project
+o File->New->Project from Existing Source
+-- Browse to /mnt/FDEV/workspaceheroku/pchauvetonheroku/pom.xml
+o Select:
+- Search for project recursively
+- Import Maven projects automatically
+- Create IntelliJ IDEA modules..
+- Keep source and test folders...
+- Exclude build directory...
+- Use Maven ouput directories
+- Click Next
+- Idea will wiz on by
+- Select: dev
+- Click Next
+- Select Maven project to import:
+Choose a project: heroku-snapshot
+- Click Next
+- Set JDK if not already: /usr/share/java-1.8.0
+- Click Next
+- The projec information will appear:
+Project name: heroku-demo
+Project file location: /mnt/FDEV/workspaceheroku/pchauvetonheroku
+- Click Finish
+
+- Project will open in Project mode
+
+
+
+Run Project From IntelliJ
+--------------------------------------
+- Go to /src/com/david/herokudemo/HerokuDemoApp.java
+- Right-Click->Run HerokuDemoApp.main
+- You should see:
+----------------------------------------------------------
+	Application 'pchauvetonheroku' is running! Access URLs:
+	Local: 		http://127.0.0.1:8080
+	External: 	http://192.168.1.2:8080
+----------------------------------------------------------
+
+- Click http://127.0.0.1:8080
+- Login using:
+admin admin
+user user
+
+* If connect is correct and deployment ok, you
+
+
+Add Entity To Project
+----------------------------------
+o Create Entity: galaxy
+- On command line enter:
+yo jhipster:entity galaxy
+----------------------------------
+The entity galaxy is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? name
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Galaxy =================
+Fields
+name (String) 
+Generating field #2n
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? type
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Galaxy =================
+Fields
+name (String) 
+type (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Galaxy =================
+Fields
+name (String) 
+type (String) 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the RES
+T controller should use the repository directly
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+   create .jhipster/Galaxy.json
+   create src/main/java/com/david/herokudemo/domain/Galaxy.java
+   create src/main/java/com/david/herokudemo/repository/GalaxyRepository.java
+   create src/main/java/com/david/herokudemo/repository/search/GalaxySearchRepository.java
+   create src/main/java/com/david/herokudemo/web/rest/GalaxyResource.java
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? overwrite
+    force src/main/resources/ehcache.xml
+   create src/main/resources/config/liquibase/changelog/20160920180556_added_entity_Galaxy.xml
+ conflict src/main/resources/config/liquibase/master.xml
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+    force src/main/resources/config/liquibase/master.xml
+   create src/main/webapp/app/entities/galaxy/galaxies.html
+   create src/main/webapp/app/entities/galaxy/galaxy-detail.html
+   create src/main/webapp/app/entities/galaxy/galaxy-dialog.html
+   create src/main/webapp/app/entities/galaxy/galaxy-delete-dialog.html
+ conflict src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/app/layouts/navbar/navbar.html? overwrite
+    force src/main/webapp/app/layouts/navbar/navbar.html
+   create src/main/webapp/app/entities/galaxy/galaxy.state.js
+   create src/main/webapp/app/entities/galaxy/galaxy.controller.js
+   create src/main/webapp/app/entities/galaxy/galaxy-dialog.controller.js
+   create src/main/webapp/app/entities/galaxy/galaxy-delete-dialog.controller.js
+   create src/main/webapp/app/entities/galaxy/galaxy-detail.controller.js
+   create src/main/webapp/app/entities/galaxy/galaxy.service.js
+   create src/main/webapp/app/entities/galaxy/galaxy.search.service.js
+   create src/test/javascript/spec/app/entities/galaxy/galaxy-detail.controller.spec.js
+   create src/test/java/com/david/herokudemo/web/rest/GalaxyResourceIntTest.java
+   create src/test/gatling/simulations/GalaxyGatlingTest.scala
+Running gulp Inject to add javascript to index
+[14:06:21] Using gulpfile /mnt/FDEV/workspaceheroku/pchauvetonheroku/gulpfile.js
+[14:06:21] Starting 'inject:app'...
+[14:06:21] gulp-inject 101 files into index.html.
+[14:06:21] Finished 'inject:app' after 223 ms
+
+
+----------------------------------
+o Create Entity: galaxy
+- On command line enter:
+yo jhipster:entity planetary_system
+----------------------------------
+The entity planetary_system is being created.
+Generating field #1
+? Do you want to add a field to your entity? (Y/n) 
+The entity planetary_system is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? name
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Planetary_system =================
+Fields
+name (String) 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? star
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Planetary_system =================
+Fields
+name (String) 
+star (String) 
+Generating field #3
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? galaxy
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Planetary_system =================
+Fields
+name (String) 
+star (String) 
+galaxy (String) 
+Generating field #4
+? Do you want to add a field to your entity? No
+================= Planetary_system =================
+Fields
+name (String) 
+star (String) 
+galaxy (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? galaxy
+? What is the name of the relationship? galaxy_relationship
+? What is the type of the relationship? many-to-one
+? When you display this relationship with AngularJS, which field from 'galaxy' do you want to use? 
+name
+? Do you want to add any validation rules to this relationship? No
+================= Planetary_system =================
+Fields
+name (String) 
+star (String) 
+galaxy (String) 
+Relationships
+galaxy_relationship (Galaxy) many-to-one 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Planetary_system =================
+Fields
+name (String) 
+star (String) 
+galaxy (String) 
+Relationships
+galaxy_relationship (Galaxy) many-to-one 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should
+ use the repository directlyn
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+   create .jhipster/Planetary_system.json
+   create src/main/java/com/david/herokudemo/domain/Planetary_system.java
+   create src/main/java/com/david/herokudemo/repository/Planetary_systemRepository.java
+   create src/main/java/com/david/herokudemo/repository/search/Planetary_systemSearchRepository.java
+   create src/main/java/com/david/herokudemo/web/rest/Planetary_systemResource.java
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? overwrite
+    force src/main/resources/ehcache.xml
+   create src/main/resources/config/liquibase/changelog/20160920181350_added_entity_Planetary_system.xml
+   create src/main/resources/config/liquibase/changelog/20160920181350_added_entity_constraints_Planetary_system.xml
+ conflict src/main/resources/config/liquibase/master.xml
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+    force src/main/resources/config/liquibase/master.xml
+   create src/main/webapp/app/entities/planetary-system/planetary-systems.html
+   create src/main/webapp/app/entities/planetary-system/planetary-system-detail.html
+   create src/main/webapp/app/entities/planetary-system/planetary-system-dialog.html
+   create src/main/webapp/app/entities/planetary-system/planetary-system-delete-dialog.html
+ conflict src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/app/layouts/navbar/navbar.html? overwrite
+    force src/main/webapp/app/layouts/navbar/navbar.html
+   create src/main/webapp/app/entities/planetary-system/planetary-system.state.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system.controller.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system-dialog.controller.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system-delete-dialog.controller.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system-detail.controller.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system.service.js
+   create src/main/webapp/app/entities/planetary-system/planetary-system.search.service.js
+   create src/test/javascript/spec/app/entities/planetary-system/planetary-system-detail.controller.spec.js
+   create src/test/java/com/david/herokudemo/web/rest/Planetary_systemResourceIntTest.java
+   create src/test/gatling/simulations/Planetary_systemGatlingTest.scala
+Running gulp Inject to add javascript to index
+[14:15:05] Using gulpfile /mnt/FDEV/workspaceheroku/pchauvetonheroku/gulpfile.js
+[14:15:05] Starting 'inject:app'...
+[14:15:05] gulp-inject 108 files into index.html.
+[14:15:05] Finished 'inject:app' after 222 ms
+
+
+----------------------------------
+o Create Entity: planet
+- On command line enter:yy
+yo jhipster:entity planet
+----------------------------------
+The entity planet is being created.
+Generating field #1
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? name
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Planet =================
+Fields
+name (String) 
+Generating field #2
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? surface
+? What is the type of your field? Float
+? Do you want to add validation rules to your field? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+Generating field #3
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? radius
+? What is the type of your field? Float
+? Do you want to add validation rules to your field? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+radius (Float) 
+Generating field #4
+? Do you want to add a field to your entity? Yes
+? What is the name of your field? system
+? What is the type of your field? String
+? Do you want to add validation rules to your field? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+radius (Float) 
+system (String) 
+Generating field #5
+? Do you want to add a field to your entity? (Y/n) n
+Generating field #5
+? Do you want to add a field to your entity? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+radius (Float) 
+system (String) 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? Yes
+? What is the name of the other entity? planetary_system
+? What is the name of the relationship? planetary_system
+? What is the type of the relationship? many-to-one
+? When you display this relationship with AngularJS, which field from 'planetary_system' do you wan
+t to use? name
+? Do you want to add any validation rules to this relationship? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+radius (Float) 
+system (String) 
+Relationships
+planetary_system (Planetary_system) many-to-one 
+Generating relationships to other entities
+? Do you want to add a relationship to another entity? No
+================= Planet =================
+Fields
+name (String) 
+surface (Float) 
+radius (Float) 
+system (String) 
+Relationships
+planetary_system (Planetary_system) many-to-one 
+? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly
+? Do you want to use separate service class for your business logic? No, the REST controller should
+ use the repository directly
+? Do you want pagination on your entity? Yes, with pagination links
+Everything is configured, generating the entity...
+   create .jhipster/Planet.json
+   create src/main/java/com/david/herokudemo/domain/Planet.java
+   create src/main/java/com/david/herokudemo/repository/PlanetRepository.java
+   create src/main/java/com/david/herokudemo/repository/search/PlanetSearchRepository.java
+   create src/main/java/com/david/herokudemo/web/rest/PlanetResource.java
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? (Ynaxdh) 
+Found the .jhipster/Planet.json configuration file, entity can be automatically generated!
+The entity planet is being updated.
+? Do you want to update the entity? This will replace the existing files for this entity, all your 
+custom code will be overwritten Yes, re generate the entity
+identical src/main/java/com/david/herokudemo/domain/Planet.java
+identical src/main/java/com/david/herokudemo/repository/PlanetRepository.java
+identical src/main/java/com/david/herokudemo/repository/search/PlanetSearchRepository.java
+identical src/main/java/com/david/herokudemo/web/rest/PlanetResource.java
+ conflict src/main/resources/ehcache.xml
+? Overwrite src/main/resources/ehcache.xml? overwrite
+    force src/main/resources/ehcache.xml
+   create src/main/resources/config/liquibase/changelog/20160920182128_added_entity_Planet.xml
+   create src/main/resources/config/liquibase/changelog/20160920182128_added_entity_constraints_Planet.xml
+ conflict src/main/resources/config/liquibase/master.xml
+? Overwrite src/main/resources/config/liquibase/master.xml? overwrite
+    force src/main/resources/config/liquibase/master.xml
+   create src/main/webapp/app/entities/planet/planets.html
+   create src/main/webapp/app/entities/planet/planet-detail.html
+   create src/main/webapp/app/entities/planet/planet-dialog.html
+   create src/main/webapp/app/entities/planet/planet-delete-dialog.html
+ conflict src/main/webapp/app/layouts/navbar/navbar.html
+? Overwrite src/main/webapp/app/layouts/navbar/navbar.html? overwrite
+    force src/main/webapp/app/layouts/navbar/navbar.html
+   create src/main/webapp/app/entities/planet/planet.state.js
+   create src/main/webapp/app/entities/planet/planet.controller.js
+   create src/main/webapp/app/entities/planet/planet-dialog.controller.js
+   create src/main/webapp/app/entities/planet/planet-delete-dialog.controller.js
+   create src/main/webapp/app/entities/planet/planet-detail.controller.js
+   create src/main/webapp/app/entities/planet/planet.service.js
+   create src/main/webapp/app/entities/planet/planet.search.service.js
+   create src/test/javascript/spec/app/entities/planet/planet-detail.controller.spec.js
+   create src/test/java/com/david/herokudemo/web/rest/PlanetResourceIntTest.java
+   create src/test/gatling/simulations/PlanetGatlingTest.scala
+Running gulp Inject to add javascript to index
+[14:23:34] Using gulpfile /mnt/FDEV/workspaceheroku/pchauvetonheroku/gulpfile.js
+[14:23:34] Starting 'inject:app'...
+[14:23:34] gulp-inject 115 files into index.html.
+[14:23:34] Finished 'inject:app' after 241 ms
+
+
+
+Rebuild and Run Project On Command Line
+----------------------------------
+./mvnw -Pdev clean package -DskipTests=true
+--or
+mvn -Pdev clean package -DskipTests=true
+
+
+java -jar target/*.war
+
+
+
+Deploying to Heroku
+---------------------------------
+heroku login
+
+abc1260@outlook.com
+isheroku11
+
+* We get Logged in as abc1260@outlook.com
+
+------------------------------
+o Deploy to heroku
+---
+yo jhipster:heroku
+------------------------------
+Heroku configuration is starting
+? Name to deploy as: pchauvetonheroku
+? On which region do you want to deploy ? us
+Initializing Git repository
+Initialized empty Git repository in /mnt/FDEV/workspaceheroku/pchauvetonheroku/.git/
+Installing Heroku CLI deployment plugin
+[INFO] --- frontend-maven-plugin:1.0:install-node-and-npm (install node and npm) @ heroku-demo ---
+[INFO] Installing node version v4.5.0
+.
+[INFO] Installing npm version 3.10.6
+[INFO] Tests are skipped.
+.
+[INFO] --- frontend-maven-plugin:1.0:gulp (gulp test) @ heroku-demo ---
+.
+[INFO] Assembling webapp [heroku-demo] in [/mnt/FDEV/workspaceheroku/pchauvetonheroku/target/heroku-demo-0.0.1-SNAPSHOT]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/mnt/FDEV/workspaceheroku/pchauvetonheroku/target/www]
+[INFO] Webapp assembled in [263 msecs]
+.
+[INFO] --- spring-boot-maven-plugin:1.4.0.RELEASE:repackage (default) @ heroku-demo ---
+s[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+.Uploading heroku-demo-0.0.1-SNAPSHOT.war
+-----> Packaging application...
+       - app: pchauvetonheroku
+       - including: target/heroku-demo-0.0.1-SNAPSHOT.war
+-----> Creating build...
+       - file: slug.tgz
+       - size: 69MB
+-----> Uploading build...
+       - success
+-----> Deploying...
+remote: 
+remote: -----> JVM Common app detected
+remote: -----> Installing OpenJDK 1.8... done
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote: 
+remote: -----> Compressing...
+remote:        Done: 117.2M
+remote: -----> Launching...
+remote:        Released v4
+remote:        https://pchauvetonheroku.herokuapp.com/ deployed to Heroku
+remote: 
+-----> Done
+
+
+Access Heroku Remote Application
+-------------------------------------
+https://pchauvetonheroku.herokuapp.com/ 
+
+
+Managing Remove Heroku Database
+-----------------------------------------
+https://dashboard.heroku.com/
+Login
+	abc1260@outlook.com
+	isheroku11
+o Resources->Heroku Postgres :: Database
+-- Connectionns Settings are shown:
+Host: ec2-107-22-235-119.compute-1.amazonaws.com
+Database: dcvnovg03929s0
+User: jytstedagvtkdq
+Port: 5432
+Password: Show 
+	t6VcDlBvYN9rfcTc2UZbV4jUV8
+Psql:  heroku pg:psql --app pchauvetonheroku DATABASE
+URL: Show
+	postgres://jytstedagvtkdq:t6VcDlBvYN9rfcTc2UZbV4jUV8@ec2-107-22-235-119.compute-1.amazonaws.com:5432/dcvnovg03929s0
+
+
+
+Managing Heroku Deployment Localy
+-----------------------------------------
+Your app should now be live. To view it run
+	heroku open
+And you can view the logs with this command
+	heroku logs --tail
+After application modification, repackage it with
+	./mvnw package -DskipTests=true -B -Pprod
+And then re-deploy it with
+	heroku deploy:jar target/*.war --app pchauvetonheroku
+	heroku deploy:war target/*.war --app pchauvetonheroku
+
+	Note:
+		Create app from heroku dashboard
+
+o heroku apps
+
+=== abc1260@outlook.com Apps
+jhipster-blog-demo
+pchauvetonheroku
+secure-forest-61145
+
+
+Delete/Destroy An Heroku Applicattion
+------------------------------
+o heroku apps:destroy --app pchauvetonheroku
+
+
+Connection to Database Using pgAdmin3
+--------------------------------------------
+o Register New Server
+Name: herokuremote
+Host: ec2-107-22-235-119.compute-1.amazonaws.com
+Port: 5432
+Service:
+Maintenane DB: dcvnovg03929s0
+Username: jytstedagvtkdq
+Password: t6VcDlBvYN9rfcTc2UZbV4jUV8
+Store Password: yes
+SSL: require
+
+o Connection is made, but to all databases
+-- Narrow to only my database
+
+o Add in Advance Tab
+DB Restriction: 'dcvnovg03929s0'
+
+!: Only my database shows
+
+
+
+Connection to Database Using IntelliJ DB Navigator
+-------------------------------------------------------
+o Click green plus to create server connection
+Name: herokuremote
+Host: ec2-107-22-235-119.compute-1.amazonaws.com
+Port: 5432
+Database: dcvnovg03929s0
+Username: jytstedagvtkdq
+Password: t6VcDlBvYN9rfcTc2UZbV4jUV8
+
+o Properties Tab
+-add property:
+ssl true
+* Note lowercase works, not upper
+
+
+o Connection is made, but to all databases
+-- Narrow to only my database
+
+o Add in Advance Tab
+DB Restriction: 'dcvnovg03929s0'
+
+!: Only my database shows
+
+
+Clone Existing Heroku App
+---------------------------------
+o heroku login
+abc1260@outlook.com
+isheroku11
+
+o heroku apps
+jhipster-blog-demo
+pchauvetonheroku
+secure-fo
+
+o 
+
+Backup Database
+---------------------------
+heroku pg:backups -a pchauvetonheroku
+
+
+
+Include in Git Reosotiry As Pipeline
+--------------------------------------------
+https://github.com/
+abc1260@outlook.com  isgithub11
+
+o cd /mnt/FDEV/workspaceherokugit
+
+-- Clone project
+git clone https://github.com/abc1260/pchauvetonheroku.git
+cd pchauvetonherokue
+
+-- copy latest project from /mnt/FDEV/workspaceheroku/pchauvetonheroku
+cp -rf /mnt/FDEV/workspaceheroku/pchauvetonheroku/* .
+
+-- Adds the file to your local repository and stages it for commit.
+git add .
+
+-- Commit changes
+git commit -m "Init project"
+
+
+-- Push the changes in your local repository to GitHub.
+git push origin master
+
+
+xxxx
+-------------------------
+Install the Heroku CLI
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+	$ heroku login
+
+Clone the repository
+
+	Use Git to clone pchauvetonheroku's source code to your local machine.
+
+	$ heroku git:clone -a pchauvetonheroku
+	$ cd pchauvetonheroku
+
+Deploy your changes
+Make some changes to the code you just cloned and deploy them to Heroku using Git.
+
+	$ git add .
+	$ git commit -am "make it better"
+	$ git push heroku master
+
+
+Issues: Could Not Recreate application and get it to run again
+----------------------------------------------
+o Delete application
+heroku apps:destroy --app pchauvetonheroku 
+o Recreated using:
+mvn -Pprod clean package -DskipTests=true
+* Database on Dashboard was gone: Heroku Postgres :: Database
+
+**Fix**
+o Install new plugin: heroku-deploy
+heroku plugins:install https://github.com/heroku/heroku-deploy
+o Relogged on local command line
+heroku login
+o Recreated application
+mvn install -Pprod -DskipTests
+o Redeployed to heroku
+heroku deploy:jar --jar target/*.war
+o Refreshed Console to Show database
+- While application was being loaded, I went to heroku console
+- Selected the application: pchauvetonheroku 
+- Selected resources
+o Use "Add ons" to add database
+- Seach for 'Heroku'
+- Select 'Heroku Progress'
+* Done, Heroku Postgres :: Database appeared
+- Note, select 'Heroku Postgres :: Database, 
+  At top right, gear icon, database 'Reset Database' can reset the database, plus more.
+
+
+
+

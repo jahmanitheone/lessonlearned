@@ -1,0 +1,61 @@
+Install Jhistper - Yeoman generator used to create a Spring Boot + AngularJS projec
+------------------------------------------------------------------------------------
+npm install -g generator-jhipster
+
+
+Install Environment
+---------------------------------------
+o Need Java 8, maven
+- Download real JDK 8 from Oracle
+
+Build App
+-------------------------------------
+o I created the Jhipster bookstore app
+/mnt/FDEV/workspacejhispster00/bookstore2
+
+o I created these scripts:
+-- blddev.sh
+#!/bin/sh
+#./mvnw -Pdev clean package -DskipTests=true
+mvn -Pdev clean package -DskipTests=true
+
+
+-- run.sh
+#!/bin/sh
+java -jar target/*.war
+
+o Build application
+./blddev.sh
+
+
+Add Build App Tomcat
+----------------------------------
+o /opt/apache-tomcat-8.5.5/webapps/demo2
+-- Copy 
+target/bookstore-0.0.1-SNAPSHOT 
+to 
+/opt/apache-tomcat-8.5.5/webapps/demo2
+
+
+
+Run Application in tomcat
+------------------------------------
+sudo tomcat start
+
+
+Load in Browser
+-----------------
+http://localhost/demo2
+
+- Note Jhipster create tables in the database aikidb
+- I created the database: aikidb
+- Jhipster created the tables
+
+
+
+
+
+
+
+
+

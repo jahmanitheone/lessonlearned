@@ -1,0 +1,78 @@
+Uninstall Cloud Foundry
+-------------------------------
+gem uninstall cf
+* If already installed
+
+Install Cloud Foundry
+-------------------------------
+gem uninstall cf
+
+o Dowload from Linux 64 bit
+https://github.com/cloudfoundry/cli/releases:
+cf-cli-installer_6.21.1_x86-64.rpm 
+
+o Install
+sudo rpm -i cf-cli-installer_6.21.1_x86-64.rpm 
+
+whereis cf
+cf: /usr/bin/cf
+
+
+Geting Started Cloud Foundry
+-------------------------------
+o Language
+
+cf config --locale en-US
+
+o Login
+
+https://account.run.pivotal.io
+abc1260@outlook.com isphil11
+org: aikiinc-org
+
+cf login -a api.run.pivotal.io -u abc1260@outlook.com -o aikiinc-org
+Password: isphil<tt>
+
+https://account.run.pivotal.io
+abc1261@gmail.com isPhil<TT>!
+
+cf login -a api.run.pivotal.io -u abc1261@gmail.com -o philipchauvet-org
+Password: isPhil<TT>!
+
+
+
+Upload A Java Application To Pivotal Using Cloud Foundary
+o Create war:
+/run/media/pchauvet/LDEV/workspacejhispster00/bookstore/target/ bookstore-0.0.1-SNAPSHOT.war
+
+o Upload App
+cf push bookstore-app -p bookstore-0.0.1-SNAPSHOT.war
+
+
+Applications On Cloud (Pivatol)
+--------------------------------------
+o Show applications
+cf apps
+* I already uploaded apps, using 'cf pust'
+
+name            requested state   instances   memory   disk   urls
+bookstore-app   stopped           0/1         1G       1G     bookstore-app.cfapps.io
+bookstoreapp    stopped           0/1         1G       1G
+cf-spring       stopped           0/1         512M     1G     cf-spring-unstretchable-spirometer.cfapps.io
+
+o Delete app
+cf delete cf-spring
+cf delete bookstoreapp
+cf delete bookstore-app
+
+
+o Increase Memory
+cf scale bookstore-app -m 5G
+
+cf create-service elephantsql turtle bookstore-app
+
+
+Upload App With Mininial env
+-----------------------------------
+cf push hello-spring-pc -p hello-spring-cloud-0.0.1-SNAPSHOT.jar -m 512M -i 1 -k 512M
+

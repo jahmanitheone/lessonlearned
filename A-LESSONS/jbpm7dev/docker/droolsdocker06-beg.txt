@@ -1,0 +1,43 @@
+Workgin with docker images
+-----------------------------------
+o Create a docker directory for docker file:
+cd /c/users/pchauvet
+
+mkdir drools-wb
+
+cd drools-wb
+
+
+o Pull Drools Wildfly
+docker pull jboss/wildfly
+
+Using default tag: latest
+latest: Pulling from jboss/wildfly
+d5e46245fe40: Already exists
+ae75e5280011: Already exists
+2a833c47bb30: Already exists
+8e245758ad1a: Already exists
+2784d9ecb4a7: Pull complete
+Digest: sha256:09310f9ed677e8358f7733ab9a57cf8001fb67b06ff8d1ee309eafd9987c2626
+Status: Downloaded newer image for jboss/wildfly:latest
+
+
+
+<none>                            <none>              c04427908fe7
+<none>                            <none>              cd5d339ce079
+<none>                            <none>              6520e9327c5b
+<none>                            <none>              af5ff3c9d141
+jamtur01/apache2                  webserver           266e6d9191c6
+<none>                            <none>              d0996c39c1e8
+jamtur01/apache2                  latest              470980f5e336
+jboss/drools-workbench-showcase   latest              88a0b1f8de40
+jboss/drools-workbench            latest              2e065e9233de
+jboss/drools-workbench            6.5.0.Final-1       3b549d2e8f19
+jboss/wildfly                     10.0.0.Final        905e36b7def0
+jboss/wildfly                     latest              ec96c1eb76d4
+ubuntu                            16.04               7b9b13f7b9c0
+ubuntu                            latest              7b9b13f7b9c0
+fedora                            21                  ba6369d667d1
+jamtur01/puppetmaster             latest              ada3e5bfc468
+
+pchauvet@PCHAUVET-1 MINGW64 /c/users/pchauvet/drools-wb

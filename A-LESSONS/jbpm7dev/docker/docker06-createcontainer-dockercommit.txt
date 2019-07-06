@@ -1,0 +1,142 @@
+Create Custom Container Using docker commit
+-----------------------------------------------------
+docker login
+Login with your Docker ID to push and pull images from Docker Hub. If y
+er.com to create one.
+Username: pchauvetdocker
+Password:
+Login Succeeded
+
+- Create a ubuntue container
+docker run -i -t ubuntu /bin/bash
+* See: root@01f7d2459407:/#
+
+- install Apache into our container.
+apt-get -yqq update
+apt-get -y install apache2
+
+- save it in its current state of container
+exit
+
+- Get docker container id
+docker ps -l -q
+See: 51bfbace0557
+
+
+- Commit current state of container
+docker commit 51bfbace0557 jamtur01/apache2
+See: sha256:470980f5e336e5d8be6066c011b0130cc5c606ee9c9a97ef2290707192da30b7
+
+- Show images
+docker images jamtur01/apache2
+
+See:
+docker images jamtur01/apache2
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+jamtur01/apache2    latest              470980f5e336        29 seconds ago      256MB
+
+o Commit with Tag information
+docker commit -m "A new custom image" -a "Philip Chauvet"  51bfbace0557 jamtur01/apache2:webserver
+See: sha256:d0996c39c1e80065c8fa47fd911c8f4294d645f330816629694e911f94fe0386
+
+- Show images
+docker images jamtur01/apache2
+
+o Inspecting The Images
+docker inspect
+
+See:
+[
+    {
+        "Id": "sha256:266e6d9191c6925cf73e575d0fc624f991b34bcfdf2c543806b3880d72506d0c",
+        "RepoTags": [
+            "jamtur01/apache2:webserver"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:7b9b13f7b9c086adfb6be4d2d264f90f16b4d1d5b3ab9f955caa728c3675c8a2",
+        "Comment": "A new custom image",
+        "Created": "2017-06-11T17:33:04.044957427Z",
+        "Container": "51bfbace0557976d66d805af67a38019912dfa32e27bd372d6fdecd1bea6bc10",
+        "ContainerConfig": {
+            "Hostname": "51bfbace0557",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "ubuntu",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "DockerVersion": "17.05.0-ce",
+        "Author": "Philip Chauvet",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 255564229,
+        "VirtualSize": 255564229,
+        "GraphDriver": {
+            "Data": null,
+            "Name": "aufs"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:6a8bf8c8edbd705f67cdc062eee3911470a38a763258c81c05da1f28d6eec896",
+                "sha256:fe9a3f9c4559684b75bba751883fa084d34e418c018d687ddc25c3f23f13f657",
+                "sha256:fc9e1e5e38f700997585295bd65a47e58f3da7b2f0e6a971e14a6104f199de1f",
+                "sha256:f2e85bc0b7b17ab33f9060d2f24824defe600e189b05a895d60b2e8a6a7bd0d7",
+                "sha256:d8b353eb3025c49e029567b2a01e517f7f7d32537ee47e64a7eac19fa68a33f3",
+                "sha256:a331dbf2e315ec750e45307a956134884bf41dccf0c42a272db5a7d708535a0b"
+            ]
+        }
+    }
+]
+
+
+o Running commited changes - Pull Container and Run bash
+docker run -t -i jamtur01/apache2:webserver /bin/bash
+
+- Run apache
+service apache2 status
+See: * apache2 is not running
+
+service apache2 start
+See: * apache2 is running
+
+service apache2 stop
+See: * Stopping Apache httpd web server apache2

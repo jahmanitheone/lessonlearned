@@ -1,0 +1,62 @@
+Setup Postgress
+-----------------------------------
+o See ../LinuxPostgress.txt
+
+Setup IntelliJ
+-----------------------------------
+o See ../LinuxIdeaIDE.txt
+
+
+Setup IntelliJ Access To DB
+-----------------------------------
+o It was recommended that I access the Database Tool from Idea using:
+View->Tool Windows->Database Tool
+
+* Database Tool was not there
+
+o Intalling a Database Tool using Idea Plugin
+-- File->Settingsm, or Ctrl-Alt-S
+-- Plugins
+-- Browse repositories
+-- I selectected: Database Navigator
+-- Install (Idea will wiz on by..)
+
+o Restart IntelliJ Idea
+File->Invalide and Restart->Just Restart
+
+o  View->Tool Windows->Db Browser
+
+
+Connect to My Local Postgress Instance
+------------------------------------------
+o Start Postgress Instance
+- See ../LinuxPostgress.txt
+postgres -D /home/pchauvet/pgsql/data >/home/pchauvet/pgsql/logfile 2>&1 &
+
+o From DB Browse Start New Connection
+-- Select green + sign
+-- Fill in Connection:
+Name: planets
+Host: localhost 
+Port: 5432
+Database: planets
+User: pchauvet
+Password: check Empty Password
+-- Click [Text Connection]
+
+* Should see Succesful Connection
+
+
+
+
+
+
+
+
+
+
+
+Setup Postgress 
+-----------------------------------
+
+

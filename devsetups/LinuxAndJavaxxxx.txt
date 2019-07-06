@@ -1,0 +1,135 @@
+Show Env Variables
+-----------------------------
+env
+
+.
+.
+BASH=/usr/bin/bash
+HISTFILE=/home/pchauvet/.bash_history
+HOME=/home/pchauvet
+HOSTNAME=new-host-4
+HOSTTYPE=x86_64
+MAIL=/var/spool/mail/pchauvet
+PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/pchauvet/.local/bin:/home/pchauvet/bin
+.
+.
+
+Set JDK Path and Classpath
+-----------------------------
+#!/bin/bash
+JAVA_HOME=/usr/lib/jvm/java-1.8.0
+CLASSPATH=$JAVA_HOME/jre/lib/rt.jar;
+PATH=$PATH:$JAVA_HOME/bin
+#----
+export JAVA_HOME
+export CLASSPATH
+export PATH
+#----
+clear
+echo .
+echo .
+echo CLASSPATH=$CLASSPATH
+echo .
+echo JAVA_HOME=$JAVA_HOME
+echo .
+echo PATH=$PATH
+echo .
+echo .
+
+
+Install Maven
+-----------------------------
+On command line enter: mvn
+Fedora will install mvn. 
+
+whereis mvn
+Its install at: /usr/bin/mvn 
+
+Apache Maven 3.3.3 is installed
+
+
+Install Git
+-----------------------------
+On command line enter: git
+Fedora will install git:
+
+whereis git
+Its install at: /usr/bin/git
+
+
+Install NodeJs
+-----------------------------
+On command line enter: nodejs
+Fedora will install nodejs:
+
+whereis nodejs 
+Its install at: /home/pchauvet/bin/nodejs
+
+
+Install npm - package manager
+-------------------------------
+On command line enter: nodejs
+Fedora will install nodejs:
+
+whereis nodejs 
+Its install at: /home/pchauvet/bin/nodejs
+
+
+Install NVM
+------------------------------------
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash
+
+o get bashrc to load nvm immediately:
+source ~/.bashrc
+
+o Get current nodejs version
+nvm current
+shows system 
+
+o Show the current running version
+nvm ls-remote
+
+o Intall version v6.5.0
+nvm install 6.5.0
+
+o Get current nodejs version
+nvm current
+shows v6.5.0
+
+
+
+Install Yeoman (yo) - code generator
+---------------------------------------
+ npm install -g yo
+
+
+Install Grunt - Automate repetivie tasks
+-------------------------------------------------
+npm install -g grunt-cli
+
+
+Install Gulp - Toolkip for automating workflow
+--------------------------------------------------
+ npm install -g gulp
+
+
+Install Bower - package manager fow web site HTML, CSS, Javascript
+-------------------------------------------------------------------------
+npm install -g bower
+
+Install: clock - Count line codes
+-------------------------
+on command line enter: cloc
+
+
+Install Gradle - Build Tool
+-----------------------------
+On command line enter: gradle
+Fedora will install
+
+Running Jhister Heroku
+-----------------------------
+yo jhipster:heroku
+
+
+

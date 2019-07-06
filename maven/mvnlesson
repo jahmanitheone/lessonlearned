@@ -1,0 +1,10 @@
+Clean Maven Local Repository
+=========================================
+mvn clean install -DskipTests=true dependency:purge-local-repository
+
+
+
+Select a maven setting.xml
+=========================================
+set MVNREPO=-s C:\mvnrepos\mvnbootstrap3\mvnbootstrap3.xml
+set CMD=mvn gwt:run %MVNREPO%

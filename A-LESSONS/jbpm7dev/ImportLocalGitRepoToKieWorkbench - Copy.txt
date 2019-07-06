@@ -1,0 +1,15 @@
+* See CloneKieWorkbenchProject.txt for "Close Exiting Kie WorkBench Project"
+o Git repo is located at :
+C:\temp\hellononhumantask\helloworldrepo
+
+
+o Import local repo to a Kie Project
+Authoring->Project Authoring->Import->Custom
+Repository Url: file:///C:/temp/hellononhumantask/helloworldrepo
+
+* Local repo will be imported into Kie Workbench
+
+o Change Project General Setting pom.xml
+- The Group ID and Artifact may already exist
+- May have to change this information to allow Project to be deployed to diffent container.
+

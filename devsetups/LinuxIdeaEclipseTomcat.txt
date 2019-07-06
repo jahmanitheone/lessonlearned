@@ -1,0 +1,51 @@
+Tomcat Local Install
+---------------------------------------
+/opt/apache-tomcat-7.0.70
+/opt/apache-tomcat-8.5.5
+
+
+Intall Tomcat On Eclipse
+---------------------------------------
+Window->Show Perspective->Servers
+Servers->No server avail..->Select Tomcat v8.5 Server
+	localhost
+	Tomcat v8.5 Server at localhost
+Finish
+
+
+Set Project Facets
+-------------------
+Select:
+Dynamic Web Module 3.1
+Java 1.8
+
+Set Project compile for JDK 1.8
+-------------------
+Select project:
+Java Compiler
+Select 1.8
+
+
+Fix Deployment Assembly
+------------------------------
+Select Project Properties
+Deployment Assembly
+Select Folder
+Add: target/<project name>
+
+
+
+Run On Server
+-------------------------
+Select Project
+Runn As
+Run On Server
+
+
+
+Profile On Server
+-------------------------
+Select Project
+Start Tomcat Server
+Profile As-->Profile On Server
+

@@ -1,0 +1,13 @@
+Install Eclipse Data Management
+-------------------------------------
+Help->Eclipse Market Place->SQL Development Tools
+
+
+Connect To MySQL
+-----------------------------
+o Show Data Source Explorer
+o Create Database Connection
+- Download MySQL driver
+o Enter Connection parameters
+
+

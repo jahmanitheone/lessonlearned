@@ -1,0 +1,7 @@
+JDBC App Timezone
+---------------------
+o Error in accessing wrong time zone in app
+EDT not set
+
+o Add time zone to  JDBC url
+jdbc:mysql://localhost:3306/bookdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Amsterdam

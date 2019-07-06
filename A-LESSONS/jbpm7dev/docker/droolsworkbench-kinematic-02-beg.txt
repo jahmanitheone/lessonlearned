@@ -1,0 +1,67 @@
+Use installed Kinematic Tool
+====================================
+1. Search for "jboss drools workbench"
+2. Select wolan/drools-workbench-docker
+3. Create 
+
+
+See it In Web Preview
+=================================
+Click preview icon:
+Served on: http://192.168.99.100:8080/
+
+
+***** DID NOT WORK
+To run a container: DONT USE - DID NOT WORK
+=================================
+docker run -p 8080:8080 -p 8001:8001 -d --name drools-workbench jboss/drools-workbench-showcase:latest
+docker run -d -p 8080:8080 jboss/drools-workbench-showcase
+
+
+To run a container: wolan/drools-workbench-docker
+=================================
+docker run -d -p 8080:8080 wolan/drools-workbench-docker
+
+
+USER        PASSWORD    ROLE
+*************************************************
+admin       admin       admin,analyst,kiemgmt
+krisv       krisv       admin,analyst
+john        john        analyst,Accounting,PM
+mary        mary        analyst,HR
+sales-rep   sales-rep   analyst,sales
+katy        katy        analyst,HR
+jack        jack        analyst,IT
+salaboy     salaboy     admin,analyst,IT,HR,Accounting
+
+
+Create User In Wildfly
+===============================
+Go to exec on Kitematic Tool
+Select Exec
+
+cd /opt/jboss/wildfly/bin
+
+./add-user.sh -a -u admin -p admin -ro admin,kie-server,rest-all,kiemgmt
+./add-user.sh -a -u krisv -p krisv -ro admin,analyst
+./add-user.sh -a -u john -p john -ro analyst,Accounting,PM
+./add-user.sh -a -u kieserver -p kieserver -ro admin,kie-server,rest-all,kiemgmt
+
+Basic WildFly Server
+==========================
+o Admin console will not work here, we go to this page:
+http://192.168.99.100:8080/noredirect.html
+
+
+Access Admin Console
+=====================================
+http://192.168.99.100:8080/drools-workbench/
+
+Login using:
+admin       admin     
+krisv       krisv    
+john        john  
+mary        mary
+     
+
+

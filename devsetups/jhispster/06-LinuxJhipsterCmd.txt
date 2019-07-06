@@ -1,0 +1,71 @@
+Init Heroku Account
+-------------------------------
+heroku
+
+Enter your Heroku credentials.
+Email: abc1260@outlook.com
+isheroku11
+
+
+
+Commands
+-----------------------
+Primary help topics, type "heroku help TOPIC" for more details:
+  addons    #  manage add-on resources
+  apps      #  manage apps (create, destroy)
+  auth      #  authentication (login, logout)
+  config    #  manage app config vars
+  domains   #  manage domains
+  logs      #  display logs for an app
+  ps        #  manage dynos (dynos, workers)
+  releases  #  manage app releases
+  run       #  run one-off commands (console, rake)
+
+Additional topics:
+  access         #  CLI to manage access in Heroku Applications
+  buildpacks     #  manage the buildpack for an app
+  certs          #  manage ssl endpoints for an app
+  drains         #  list all log drains
+  features       #  manage optional features
+  git            #  manage local git repository for app
+  help           #  list commands and display help
+  keys           #  manage authentication keys
+  labs           #  manage optional features
+  local          #  run heroku app locally
+  login          #  login with your Heroku credentials.
+  maintenance    #  manage maintenance mode for an app
+  members        #  manage membership in organization accounts
+  notifications  #  display notifications
+  orgs           #  manage organization accounts
+  pg             # 
+  pgbackups      #  manage backups of heroku postgresql databases
+  pipelines      #  manage collections of apps in pipelines
+  plugins        #  manage plugins to the heroku gem
+  redis          #  manage heroku redis instances
+  regions        #  list available regions
+  spaces         #  manage heroku private spaces
+  stack          #  manage the stack for an app
+  status         #  status of the Heroku platform
+  update         #  update the heroku client
+  version        #  display version
+
+
+heroku app --help
+  apps:create [NAME]             #  create a new app
+  apps:destroy --app APP         #  permanently destroy an app
+  apps:errors                    #  view app errors
+  apps:favorites                 #  list favorited apps
+  apps:favorites:add             #  favorites an app
+  apps:favorites:remove          #  unfavorites an app
+  apps:fork                      #  fork an existing app into a new one
+  apps:info                      #  show detailed app information
+  apps:join --app APP            #  add yourself to an organization app
+  apps:leave --app APP           #  remove yourself from an organization app
+  apps:lock --app APP            #  lock an organization app to restrict access
+  apps:open --app APP            #  open the app in a web browser
+  apps:rename NEWNAME --app APP  #  rename the app
+  apps:stacks                    #  show the list of available stacks
+  apps:transfer RECIPIENT        #  transfer applications to another user, organization or team
+  apps:unlock --app APP          #  unlock an organization app so that any org member can join it
+
+

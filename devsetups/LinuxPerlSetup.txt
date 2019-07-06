@@ -1,0 +1,12 @@
+* Install perl SOAP
+-----------------------------
+sudo dnf install perl-SOAP-Lite
+
+
+
+* Install perl SOAP
+-----------------------------
+sudo dnf install perl-List-MoreUtils
+
+
+

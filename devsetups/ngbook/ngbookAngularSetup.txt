@@ -1,0 +1,32 @@
+* Install NodeJS
+-----------------------------
+See LinuxNodeJs.txt
+
+
+
+Install TypeScript
+----------------------------
+npm install -g 'typescript@1.9.0-dev.20160409'
+-- typescript has been deprecated
+
+
+npm install
+-- Use basic install
+
+
+
+
+Build Angula Project
+-------------------------------------
+cd <project>
+npm install
+
+o Create project artifacts
+
+o Build
+tsc
+
+o Run project
+npm run serve
+
+

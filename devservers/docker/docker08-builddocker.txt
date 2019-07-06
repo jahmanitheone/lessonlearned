@@ -1,0 +1,18 @@
+Search For Docker
+-----------------------------------
+o Create directory for project:
+mkdir /home/pchauvet/CDEV/workspacedocker/mydockerbuild
+
+o Create docker file: Dockerfile
+- I installed apt-get by typing apt-get in terminal
+
+FROM docker/whalesay:latest
+RUN apt-get -y update && apt-get install -y fortunes
+CMD /usr/games/fortune -a | cowsay
+
+o Build image from docker file:
+
+docker build -t docker-whale .
+
+
+

@@ -1,0 +1,343 @@
+Create JDK 8 Environment
+--------------------------------------------------
+o Download JDK
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+- Linux X64  jdk-8u101-linux-x64.tar.gz
+
+o Use already existing linux path JDK Path
+su
+cd /usr/share/java-1.8.0
+
+tar -xzf jdk-8u101-linux-x64.tar.gz
+
+
+Create Java Script With Environments Vars
+----------------------------------------------------
+-- I created a setjdk18.sh in /mnt/FBIN/bin
+
+#!/bin/bash
+JAVA_HOME=/usr/java/jdk1.8.0_101
+CLASSPATH=$JAVA_HOME/jre/lib/rt.jar;
+PATH=$PATH:$JAVA_HOME/bin
+#----
+export JAVA_HOME
+export CLASSPATH
+export PATH
+#----
+clear
+echo .
+echo CLASSPATH=$CLASSPATH
+echo .
+echo JAVA_HOME=$JAVA_HOME
+echo .
+echo PATH=$PATH
+echo .
+
+Called it on boot timne
+------------------------------------------------
+Add script to /home/pchauvet/.bash_profile 
+
+. setjdk18.sh
+
+
+
+Create Tomcat7 Environment
+-----------------------------------
+o Download tomcat
+http://tomcat.apache.org/download-80.cgi
+apache-tomcat-8.5.5.tar.gz
+
+o Go to /usr/share
+cd /usr/share
+
+o Untar tomcat
+su
+tar -xzf apache-tomcat-8.5.5.tar.gz
+
+- directory is created:
+/opt/apache-tomcat-8.5.5
+
+
+Run Tomcat7 As A Service
+-----------------------------------
+o Go to init.d directory
+cd /etc/init.d
+
+
+Create startup script
+-------------------------------------------------------
+gedit tomcat
+
+-Add this file content:
+#!/bin/bash  
+# description: Tomcat Start Stop Restart  
+# processname: tomcat  
+# chkconfig: 234 20 80  
+
+JAVA_HOME=/usr/java/jdk1.8.0_101
+PATH=$JAVA_HOME/bin:$PATH  
+CATALINA_HOME=/opt/apache-tomcat-8.5.5
+
+export JAVA_HOME  
+export PATH  
+
+case $1 in  
+start)  
+	sh $CATALINA_HOME/bin/startup.sh  
+	;;   
+stop)     
+	sh $CATALINA_HOME/bin/shutdown.sh  
+	;;   
+restart)  
+	sh $CATALINA_HOME/bin/shutdown.sh  
+	sh $CATALINA_HOME/bin/startup.sh  
+	;;   
+esac      
+exit 0  
+
+
+o Add permission to run
+chmod 755 tomcat 
+
+
+Have file to start Tomcat boot time. 
+-----------------------------------------------------
+chkconfig --add tomcat 
+chkconfig --level 234 tomcat on  
+
+- 234 are the run levels 
+- Or, 20 and 80 are the stop and start priorities respectively
+
+o Validate Tomcat is setup
+chkconfig --list tomcat 
+
+
+Start Tomcat as a service
+-------------------------------------------------------
+service tomcat start
+- Go to http://localhost:8080/ 
+- view tomcat
+
+o Stop Tomcat as a service
+service tomcat stop
+- Go to http://localhost:8080/ 
+- Should not view tomcat
+
+o Restart Tomcat as a service
+service tomcat restart
+- Go to http://localhost:8080/ 
+- view tomcat
+
+
+View Tomcat log
+-------------------------------------------------------
+tail /opt/apache-tomcat-8.5.5/logs/catalina.out
+
+or
+
+more /opt/apache-tomcat-8.5.5/logs/catalina.out
+
+
+Change Tomcat Security And Roles
+----------------------------------------
+/opt/apache-tomcat-8.5.5/conf/tomcat-users.xml
+
+-- Change user who will manage GUI
+<tomcat-users>  
+	<role rolename="manager-gui"/>  
+	<user username="tomcat" password="secret" roles="manager-gui"/>  
+</tomcat-users>  
+
+
+
+Manage Memory Usage Using JAVA_OPTS.
+----------------------------------------
+/opt/apache-tomcat-8.5.5/bin/catalina.sh
+
+- Change max and min heapsize to 128M
+JAVA_OPTS="-Xms128m -Xmx128m"
+- add right after 
+#!/bin/sh
+
+
+
+Run Tomcat using Minimally Privileged (non-root) User.
+--------------------------------------------------------------
+o Create the group 'tomcat'
+groupadd tomcat
+
+o Create the user 'tomcat' 
+useradd -s /bin/bash -g tomcat tomcat
+-- /home/tomcat/ is created
+-- Or, create home directory elsewhere:
+useradd -g tomcat -d /opt/apache-tomcat-8.5.5/tomcat tomcat  
+tomcat home is now /opt/apache-tomcat-8.5.5/tomcat
+
+-- Add user to tomcat
+su
+usermod -G tomcat -a pchauvet
+
+o Change /opt/apache-tomcat-8.5.5/ all files to tomcat user
+chown -Rf tomcat.tomcat /opt/apache-tomcat-8.5.5/ 
+
+ls -l /opt/apache-tomcat-8.5.5/ 
+-- user and group should be: tomcat
+
+
+
+Change Service Script To Allow tomcat user to run it
+-------------------------------------------------------
+o Add run tomcat user with su priveledge
+add '/bin/su tomcat' ????cd e
+
+cd /etc/init.d/
+gedit tomcat
+-- Change file to:
+#!/bin/bash  
+# description: Tomcat Start Stop Restart  
+# processname: tomcat  
+# chkconfig: 234 20 80  
+
+JAVA_HOME=/usr/java/jdk1.8.0_101
+PATH=$JAVA_HOME/bin:$PATH  
+CATALINA_HOME=/opt/apache-tomcat-8.5.5 
+
+export JAVA_HOME  
+export PATH  
+
+case $1 in  
+start)  
+	/bin/su tomcat $CATALINA_HOME/bin/startup.sh  
+	;;   
+stop)     
+	/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh  
+	;;   
+restart)  
+	/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh  
+	/bin/su tomcat $CATALINA_HOME/bin/startup.sh  
+	;;   
+esac      
+exit 0  
+;
+
+
+o Run servive as pchauvet
+-- login as pchauvet
+sudo service tomcat start
+sudo service tomcat stop
+sudo service tomcat restart
+
+
+
+How to Run Tomcat on Port 80 as Non-Root User
+------------------------------------------------------
+-- Reroute port 8080 to 80
+-- NOT USED SINCE I don't know how to undo
+iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080    
+iptables -t nat -A PREROUTING -p udp -m udp --dport 80 -j REDIRECT --to-ports 8080
+
+
+
+Running Tomcat behind Apache
+------------------------------------------------------
+o Using VHOST with mod_proxy:
+-- Using lampp installed at:
+/opt/lampp/
+
+-- Add a the VHOST with mod_proxy:
+/opt/lampp/etc/extra/httpd-tomcatvhostmod.conf
+-- Here is the content:
+<VirtualHost *:80>
+    ServerAdmin admin@yourdomain.com
+    ServerName yourdomain.com
+    ServerAlias www.yourdomain.com
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+    <Proxy *>
+       Order allow,deny
+       Allow from all
+    </Proxy>
+
+
+    ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+
+
+    ErrorLog logs/yourdomain.com-error_log
+    CustomLog logs/yourdomain.com-access_log common
+
+</VirtualHost>
+
+-- Have apache user this file: 
+/opt/lampp/etc/httpd.conf
+
+-- Add this to bottom of file:
+httpd-tomcatvhostmod.conf
+
+-- Apache can be accessed using: 
+http://localhost/
+or 
+http://localhost:8080
+
+                  
+-- Add a the VHOST with ajp connector and mod_proxy:
+/opt/lampp/etc/extra/httpd-tomcatvhostajp.conf
+-- Here is the content:
+<VirtualHost *:80>
+	ServerAdmin admin@yourdomain.com
+	ServerName yourdomain.com
+	ServerAlias www.yourdomain.com
+
+
+	ProxyRequests Off
+	ProxyPreserveHost On
+	<Proxy *>
+	Order allow,deny
+	Allow from all
+	</Proxy>
+
+	ProxyPass / ajp://localhost:8009/
+	ProxyPassReverse / ajp://localhost:8009/
+
+
+	ErrorLog logs/yourdomain.com-error_log
+	CustomLog logs/yourdomain.com-access_log common
+</VirtualHost>
+
+
+-- Route and apt
+/opt/lampp/etc/extra/httpd-tomcatvhostapp.conf
+-- Here is the content:
+<VirtualHost *:80>
+	ServerAdmin admin@yourdomain.com
+	ServerName yourdomain.com
+	ServerAlias www.yourdomain.com
+
+
+	RewriteEngine On
+	RewriteRule ^/$ myapp/ [R=301]
+
+	ProxyRequests Off
+	ProxyPreserveHost On
+	<Proxy *>
+	Order allow,deny
+	Allow from all
+	</Proxy>
+
+	ProxyPass / ajp://localhost:8009/
+	ProxyPassReverse / ajp://localhost:8009/
+
+
+	ErrorLog logs/yourdomain.com-error_log
+	CustomLog logs/yourdomain.com-access_log common
+</VirtualHost>
+
+
+
+
+
+
+
+
+

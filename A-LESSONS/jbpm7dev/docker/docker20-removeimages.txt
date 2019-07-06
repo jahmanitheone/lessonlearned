@@ -1,0 +1,104 @@
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+o Find all danling images
+docker images -f dangling=true
+
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<none>              <none>              ce49c5531fa8        18 minutes ago      854MB
+<none>              <none>              84625ef51ea7        34 minutes ago      854MB
+<none>              <none>              77646e890182        35 minutes ago      854MB
+<none>              <none>              6625e1064292        4 hours ago         213MB
+<none>              <none>              a54dfdca4efe        4 hours ago         118MB
+<none>              <none>              c04427908fe7        5 hours ago         157MB
+<none>              <none>              cd5d339ce079        5 hours ago         213MB
+<none>              <none>              6520e9327c5b        5 hours ago         213MB
+<none>              <none>              af5ff3c9d141        6 hours ago         213MB
+<none>              <none>              d0996c39c1e8        25 hours ago        256MB
+
+o Remove an image
+docker rmi ce49c5531fa8
+
+Deleted: sha256:ce49c5531fa8a04758e1fe013a5ebfbea6d572df385d8a5abaf220fec0466589
+Deleted: sha256:3fb0271f4371dafe733631ce17f136805f239e5ca0dee97b4297e094c3afa241
+Deleted: sha256:a671fadd3eb4d7acef680a00d865f2ffb17d38bfe2b3d7d2e164a6a1bc65ef8a
+Deleted: sha256:446ee1b397b4441477a144b95bf82535e44395180507d2bd648720122c7b6ddc
+Deleted: sha256:2e9fb6de676f6672aead200639efc4ae592de2cd1dc4e4422025e59671dbb3aa
+Deleted: sha256:87aff0cc31f13cc7dce63722f9a52c866bcd959ba622029e6ac5e22b55b04abb
+Deleted: sha256:ba0af7033bbbf2bd2f36dea1e9392d70a8ab186ad71c8aab24a36caf426de948
+Deleted: sha256:d02370dd57f4bb102c7b730069222ff2a0e1aaa607f33ff0ce7b15828fa4d3c9
+Deleted: sha256:5d4620cee5ed463d7d233cdbe4b415b2dc216d8ae746ad204ecaf0d78b293bd6
+Deleted: sha256:a86817049c82e0db988bdb7bec0cdb042dc290746bf87edd4dbc77e0b9d37360
+Deleted: sha256:a4409501ce9fce96bf0d2344aaf83d940ee2679e355a893d2e1e038aa312cbc0
+Deleted: sha256:1701c77af05a3f6f8429978891795aad921138da8bd604890081799b8228ccdb
+Deleted: sha256:fd7b9a4e60af7caef0e1b3c46c00809ff68bf3a784ddb733d5dcb37d33f05b99
+Deleted: sha256:f1cb95fb7b994249bbd3efe692a71d07863d91d81c88c1a7c02828ed249c27a7
+
+
+o Remove all dangling images
+docker rmi $(docker images -f dangling=true -q)
+Deleted: sha256:84625ef51ea74b4767d5adb4ca94d1d207f825a04a40f67e06a53cda266b1f15
+Deleted: sha256:4422c2ce07c34d9e18950abed1c771694ebf8047dca5f8c1f4c24825010ef261
+Deleted: sha256:8d07446e28fa1450f43276fcc7cdf89893a8fc01515198fe8882248ee53601d5
+Deleted: sha256:77646e890182751d5fddb4eebe54481b1bf8ed62c3c85c8452b50c7c56f45b08
+Deleted: sha256:2ef6f7e2230b6e9ff84f58e06197171bef8c13b07f3503eaa452feda67746549
+Deleted: sha256:6daabcaf732531bad0d164e2e8292784af2c36acd79d0592cdebf5399cacce5b
+Deleted: sha256:a54dfdca4efec160b7a395ae14e343502334ffe7dd20a0f094ad6dfbcee10fbd
+Deleted: sha256:d0dec0a1ee387dbedac18faa6f211f23d0f2bf297e9caa8bb361de79c178f697
+Deleted: sha256:cd5d339ce079016aa8d992ea1981d4ff4cd49bc99f24703ed9a63ada5af8f628
+Deleted: sha256:1d8b098cff65c9ac2a339022c250ebc65479efbfe5e1c87f3a59711f3e2f66d1
+Deleted: sha256:2948c977ce25cd63046e2f4e71db40adccc6736007e2c8fb354c055672985832
+Deleted: sha256:1333473ceea2de339ada2b21ba1aaec0e10e34c4545494d7e54c88b49c73e20c
+Deleted: sha256:5a026aa5b49945f0428662f617c72bad5a5ecaf1317f024ef4d8f5ed56764b7b
+Deleted: sha256:6520e9327c5b70b2b58cfaf045aac3d5b52a0d88af1513dcacfdb7aab6f21581
+Deleted: sha256:3eb0174d93048213915cb8d20b072ce512e7e270dd093f850f7edabfd5a938e1
+Deleted: sha256:1ddb9c9799dc21b3cb4412f025d988b582e45ed74963cd754e19237f88e797be
+Deleted: sha256:af5ff3c9d141153d722ffb6d7f906534c0d42b29792a116683dd34a7f9f16961
+Deleted: sha256:205851b655a529804f089d8e42a5001d734cc6e868339c43561c5da1974e10d3
+Deleted: sha256:68f88df436d55f6a67c655cbbb206b2060741c62e505b49842aca559d0d0d3b1
+Deleted: sha256:d0996c39c1e80065c8fa47fd911c8f4294d645f330816629694e911f94fe0386
+Error response from daemon: conflict: unable to delete 6625e1064292 (must be forced) - image is being used by
+Error response from daemon: conflict: unable to delete c04427908fe7 (must be forced) - image is being used by
+
+
+o See status of remove
+$ docker images
+REPOSITORY                        TAG                 IMAGE ID            CREATED             SIZE
+jamtur01/static_web               latest              869eac5d6746        4 hours ago         213MB
+<none>                            <none>              6625e1064292        5 hours ago         213MB
+<none>                            <none>              c04427908fe7        5 hours ago         157MB
+<none>                            <none>              4346e4581d91        6 hours ago         213MB
+jamtur01/apache2                  webserver           266e6d9191c6        25 hours ago        256MB
+jamtur01/apache2                  latest              470980f5e336        26 hours ago        256MB
+jboss/drools-workbench-showcase   latest              88a0b1f8de40        7 days ago          854MB
+jboss/drools-workbench            latest              2e065e9233de        7 days ago          854MB
+jboss/drools-workbench            6.5.0.Final-1       3b549d2e8f19        7 days ago          854MB
+jboss/wildfly                     10.0.0.Final        905e36b7def0        7 days ago          582MB
+jboss/wildfly                     latest              ec96c1eb76d4        7 days ago          584MB
+ubuntu                            16.04               7b9b13f7b9c0        10 days ago         118MB
+ubuntu                            latest              7b9b13f7b9c0        10 days ago         118MB
+fedora                            21                  ba6369d667d1        9 months ago        241MB
+jamtur01/puppetmaster             latest              ada3e5bfc468        3 years ago         312MB
+
+
+o Remove image <none>  6625e1064292
+docker rmi 6625e1064292
+
+$ docker rmi  6625e1064292
+Error response from daemon: conflict: unable to delete 6625e1064292 (must be forced) - image is being used by
+
+$ docker rmi -f 6625e1064292
+Deleted: sha256:6625e1064292e7c78f055f149d8b05b261606abe7e03f66239ec4f3b4fcfb5bc
+Deleted: sha256:d306a57df22e8836c7f27dad134ad0f3363f4cc6024f34ff4d43f9b4f8029747
+Deleted: sha256:47b40277c0dc8b9c0401ea6247f376793a0a1e17f96470c723fc97cf9205c5ec
+Deleted: sha256:12437570e6ba7437cf781814dc066c7243307b83d73d5dd069bfeaca0e48e787
+
+
+o Remove image by pattern
+- Remove all ubuntu images by their id
+docker images | grep "ubuntu" | awk '{print -f $3}' | xargs docker rmi
+
+o Remove all images
+docker rmi $(docker images -a -q)
+
+
+

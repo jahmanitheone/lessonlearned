@@ -1,0 +1,24 @@
+Deploy Axis2 To Concat
+--------------------
+o Download axis2 war
+o Explode axis2.war to tomcat
+o Deploy war to tomcat
+
+
+Add Axis Services To Tomcat
+-----------------------------------------
+In ../WEB-INF/services/
+
+o Add desired basicalc.aar
+
+
+
+Turning Axis2 Logging
+-----------------------------------------
+/mnt/FBIN/axis2-1.7.4/conf/log4j.properties
+
+- Uncomment 
+log4j.rootCategory=INFO, CONSOLE, LOGFILE
+
+- Location of log output
+/mnt/FBIN/axis2-1.7.4/bin/axis2.log

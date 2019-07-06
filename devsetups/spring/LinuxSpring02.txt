@@ -1,0 +1,34 @@
+Install SpringBoot
+---------------------------------------
+o Download
+curl https://start.spring.io/install.sh | sh
+
+-- where is it installed
+whereis spring
+spring: /usr/local/bin/spring
+
+-- Version
+spring --version
+Spring CLI v1.4.1.RELEASE
+
+
+Create Simple Groov Project
+--------------------------
+hello.groovy
+@RestController
+class WebApplication {
+	@RequestMapping("/")
+	String home() {
+		"Hello World!"
+	}
+}
+
+
+Run as Spring Project
+-----------------------------
+spring run hello.groovy
+
+-- Go to tomcat in browser
+http://localhost:8080/
+
+

@@ -1,0 +1,24 @@
+Install Brackets On Fedora
+--------------------------------------
+sudo dnf install dnf-plugins-core
+sudo dnf copr enable jgillich/brackets
+sudo dnf update
+sudo dnf install brackets
+
+
+!Fix 
+o Had to install 2x, doing this only:
+sudo dnf copr enable jgillich/brackets
+sudo dnf install brackets
+
+
+#
+#Remove brackets
+sudo dnf remove brackets
+
+
+Open Bracket In Brackground
+---------------------------------
+#!/bin/sh
+brackets $@ > /dev/null 2>&1 &
+

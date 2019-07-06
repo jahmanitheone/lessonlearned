@@ -1,0 +1,74 @@
+github.com
+--------------------
+jahmanitheone@outlook.com doxxpyyy<tt> - software dev
+    -- My personal stuff private
+    https://github.com/jahmanitheone
+    
+pchauvet@outlook.com  doxxpyyy<tt>* - sofware dev
+    -- Share whatever with world
+    
+** Has dbuniit
+aikiinc@gmail.com doxxaiki<tt>
+    -- Best work with Aiki Innovations Inc
+    Other email aikiinnovations@gmail.com doxxaiki<tt>
+	Work:
+		https://github.com/aikiinc
+
+** Has heroku
+abc1260@outlook.com doitgit<11>*
+
+
+
+IntelliJ Git Repository Setting
+---------------------------------------
+o Start Idea
+-- Configure -- Version Contorl For Git:
+Path to Git Excecutable: /usr/bin/git
+SSH executable: Built-in
+Test:
+* Shows Git Version 2.7.4.0
+
+-- Configure Settings Repository
+Upstream URL: /mnt/FDATA/gitrepository/prj21points02.git
+Overwrite Local
+
+
+Checkout Project From Version Control
+------------------------------------------
+-- Start Idea
+-- Select: Git
+-- Git Repository URL: /mnt/FDATA/gitrepository/prj21points02.git
+-- Parent Directory: /mnt/FDEV/workspacejhipster02
+-- Clone
+
+
+o Select main project
+-- Compare With Branch
+
+Create New Branching
+----------------------------------------------
+-- Git--Repository--Branches
+--Shows branches
+
+-- New Branch
+Enter the name of new branch:
+BrowsersyncFeature
+
+
+* Note branch of  master is carried out, not current branch
+
+Add Changes, sync with repo
+----------------------------------------------
+VCS--Git--Add
+
+
+Commit Branch
+----------------------------------------------
+VCS--Commit Changes
+-- select root project
+-- Add comment:
+Adding Browsersync Feature
+
+
+
+

@@ -1,0 +1,35 @@
+Setup IntelliJ
+-------------------
+Download from :
+	https://www.jetbrains.com/idea/download/download-thanks.html?platform=linux&code=IIC
+
+Copy to /mnt/FBIN/bin/
+    sudo cp /mnt/FTSPACE1/Downloads/DEV/ideaIC-2016.2.3.tar.gz /mnt/FBIN/bin/
+
+Extract the archive file:
+    sudo tar -xvf ideaIC-2016.2.3.tar.gz
+
+Create symbolic links so that the IDE can be opened from any location:
+    sudo ln -sf /mnt/FBIN/bin/idea-IC-162.1812.17 /mnt/FBIN/bin/idea
+    #--Every one can acces from here	
+    sudo ln -s /mnt/FBIN/bin/idea/bin/idea.sh /usr/local/bin/idea
+
+Open the IntelliJ IDE by the running the following command:
+    idea
+
+Create a desktop launcher:
+    To create a desktop launcher create a idea.desktop file in the Desktop folder inside the HOME folder. Copy paste the following contents in the file:
+
+    [Desktop Entry]
+    Encoding=UTF-8
+    Version=1.0
+    Name=IntelliJ IDEA
+    GenericName=Java IDE
+    Comment=IntelliJ IDEA.
+    Exec=idea
+    Icon=/mnt/FBIN/bin/idea/bin/idea.png
+    Terminal=false
+    Type=Application
+    Categories=Development;IDE
+
+

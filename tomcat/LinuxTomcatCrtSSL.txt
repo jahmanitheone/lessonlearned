@@ -1,0 +1,63 @@
+1. Shell Script For creating key
+-------------------------------------------------------------------
+crtkey.sh has this entry:
+
+#!/bin/bash
+CMD="keytool -genkey -keyalg RSA -keystore tcat.keystore"
+echo
+echo CMD=$CMD
+$CMD
+
+
+2. Create key
+---------------------------------------------------------#
+#password: pchauvet
+#
+
+crtkey.sh
+
+----
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  goldyman
+What is the name of your organizational unit?
+  [Unknown]:  localhost
+What is the name of your organization?
+  [Unknown]:  localhost
+What is the name of your City or Locality?
+  [Unknown]:  New York
+What is the name of your State or Province?
+  [Unknown]:  NY
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=goldyman, OU=localhost, O=localhost, L=New York, ST=NY, C=US correct?
+  [no]:  y
+
+Enter key password for <mykey>
+	(RETURN if same as keystore password):  
+Re-enter new password: 
+
+
+3. Config Tomcat
+---------------------------------------------------------
+a. Create a directory on tomcat: /certs
+/opt/apache-tomcat-8.5.5/conf/certs
+b. Copy tcat.keystore to /opt/apache-tomcat-8.5.5/conf/certs
+/opt/apache-tomcat-8.5.5/conf/certs/tcat.keystore
+c. Comment out security for Tomcat's main configuration file is: TOMCAT_HOME/conf/server.xml
+d. Add https security connection
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" 
+               keystoreFile="/opt/apache-tomcat-8.5.5/conf/certs/tcat.keystore"
+               keystorePass="pchauvet" 
+     /> 
+
+
+4. Recreate Certificate
+------------------------------------------------
+a. Recreate certificat using another or same filename, and add new file to <Connector/>
+
+

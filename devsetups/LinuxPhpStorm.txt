@@ -1,0 +1,18 @@
+Install PhpStorm
+------------------------
+
+https://www.jetbrains.com/phpstorm/download/download-thanks.html?platform=linux
+
+
+Create Binary Shell
+--------------------------------
+/home/pchauvet/bin/phpstorm
+
+#!/bin/sh
+
+if [ "$1" == "--help" ]; then
+   /home/pchauvet/CBIN/PhpStorm-171.3780.104/bin/phpstorm.sh --help
+else
+    /home/pchauvet/CBIN/PhpStorm-171.3780.104/bin/phpstorm.sh $@ > /dev/null 2>&1 &
+fi
+

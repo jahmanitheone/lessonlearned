@@ -1,0 +1,17 @@
+Install Mysql PDO
+------------------------
+
+sudo dnf install php-7.0.17-1.fc25
+sudo dnf install php-pdo-7.0.17-1.fc25.x86_64
+sudo dnf install php-xml-7.0.17-1.fc25.x86_64
+sudo dnf install php-mcrypt-7.0.17-1.fc25.x86_64
+sudo dnf install php-common-7.0.17-1.fc25.x86_64 
+
+
+sudo dnf remove php-pdo-7.0.17-1.fc25.x86_64
+sudo dnf remove php-xml-7.0.17-1.fc25.x86_64
+sudo dnf remove php-mcrypt-7.0.17-1.fc25.x86_64
+
+sudo yum install php-mysql php-pdo php-xml php-mcrypt php-mbstring php-gd
+
+

@@ -1,0 +1,124 @@
+Show Env Variables
+-----------------------------
+env
+.
+PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/pchauvet/.local/bin:/home/pchauvet/bin
+.
+.
+
+Set JDK Path and Classpath
+-----------------------------
+#!/bin/bash
+JAVA_HOME=/usr/share/java-1.8.0
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/jre/lib/rt.jar;
+#----
+export JAVA_HOME
+export CLASSPATH
+export PATH
+#----
+clear
+echo .
+echo CLASSPATH=$CLASSPATH
+echo .
+echo JAVA_HOME=$JAVA_HOME
+echo .
+echo PATH=$PATH
+echo .
+
+
+
+Install Maven - Build manager for Java projects. Features a (POM) Project Object Model,
+-----------------------------
+On command line enter: mvn
+Fedora will install mvn. 
+
+whereis mvn
+Its install at: /usr/bin/mvn 
+
+mvn -version
+Apache Maven 3.3.9 ..
+
+
+Install Git - Version control system
+-----------------------------
+On command line enter: git
+Fedora will install git:
+
+whereis git
+Its install at: /usr/bin/git
+
+git --version
+
+
+Install npm - package manager
+-------------------------------
+On command line enter: npm
+Fedora will install mp:
+* It might be installed when node.js is installed
+
+whereis npm
+npm: /usr/share/man/man3/npm.3.gz /usr/share/man/man1/npm.1.gz
+
+npm --version
+3.10.3
+
+Install NVM - Node Version Manager
+------------------------------------
+Download from: https://github.com/creationix/nvm
+npm.master.zip
+
+-- Extract npm.master.zip
+
+./install.sh | bash
+
+o get bashrc to load nvm immediately:
+source ~/.bash
+o Get current nodejs version
+nvm current
+shows system 
+
+npm --version
+3.10.3
+
+o Show the current running version
+nvm ls-remote
+
+o Intall version v6.5.0
+nvm install 6.5.0
+
+o Get current nodejs version
+nvm current
+shows v6.5.0
+
+
+
+Install NodeJs - Other Method
+-----------------------------
+On command line enter: node
+Fedora will install node:
+
+* Did not work, used:
+sudo dnf install nodejs
+
+As of 9/2016 installed version nodejs-1:4.5.0-1.fc24.x86_
+whereis node
+node: /usr/bin/node /usr/share/node /usr/share/man/man1/node.1.gz
+
+node --version
+v6.5.0
+
+Install Yeoman (yo) - code generator
+---------------------------------------
+npm install -g yo
+
+yo --version
+1.8.5
+
+
+
+Install Jhistper - Yeoman generator used to create a Spring Boot + AngularJS projec
+------------------------------------------------------------------------------------
+npm install -g generator-jhipster
+
+

@@ -1,0 +1,27 @@
+MYSQL Allow User Access
+-----------------------------------
+Issue: Could not access MYSQL using
+
+root/aiki password
+
+Fix
+-----------------------------
+Access phpmyadmin
+http://127.0.0.1/phpmyadmin/server_privileges.php?db
+o We see
+User name 	Host name 	Password 	Global privileges 	Grant 	Action
+bn_wordpress 	127.0.0.1 	Yes 	USAGE 	No 	Edit privileges Edit privileges	Export Export
+bn_wordpress 	localhost 	Yes 	USAGE 	No 	Edit privileges Edit privileges	Export Export
+jbpm 	localhost 	Yes 	ALL PRIVILEGES 	Yes 	Edit privileges Edit privileges	Export Export
+mysql.session 	localhost 	Yes 	SUPER 	No 	Edit privileges Edit privileges	Export Export
+mysql.sys 	localhost 	Yes 	USAGE 	No 	Edit privileges Edit privileges	Export Export
+root 	localhost 	Yes 	ALL PRIVILEGES 	Yes 	Edit privileges Edit privileges	Export Expor
+
+o We have to add user using phpAdmin:
+root 127.0.0.1
+root 	127.0.0.1 	Yes 	ALL PRIVILEGES 
+
+- We can no access root with MYSQL and JDBC calls
+
+ 
+

@@ -1,0 +1,70 @@
+Heroku Download
+-----------------------------------
+https://devcenter.heroku.com/articles/heroku-command-line
+
+wget -qO- https://toolbelt.heroku.com/install.sh | sh
+
+whereis heroku
+heroku: /usr/local/heroku
+
+-- or
+
+npm install -g heroku-cli
+
+
+
+
+Add Heroku To .bash_profile
+-----------------------------------
+PATH=$PATH:$HOME/.local/bin:$HOME/bin;:/mnt/FBIN/bin
+PATH=$PATH:/usr/local/heroku/bin
+
+
+Unistall Heroku
+-------------------------------
+If heroku-toolbelt/3.43.9 is not shown, uninstall heroku:
+heroku-toolbelt/3.43.9
+
+which heroku
+/usr/bin/heroku
+
+* Path should be ruby gems directory
+gem uninstall heroku --all
+ERROR:  While executing gem ... (Gem::InstallError)
+    heroku is not installed in GEM_HOME, try:
+	gem uninstall -i /usr/share/gems herok
+
+whereis heroku
+
+
+
+Init Heroku Account
+-------------------------------
+heroku
+
+Enter your Heroku credentials.
+Email: abc1260@outlook.com
+isheroku11
+
+
+
+** Issues
+--------------------------------
+heroku --version
+* Should see the heroku-toolbelt/3.43.9
+
+-- On first install, /usr/local/heroku has 
+heroku install script
+
+run it as root:
+sudo /usr/local/heroku
+
+--or--
+On command line type: heroku
+fedora will install heroku
+
+
+
+
+
+
